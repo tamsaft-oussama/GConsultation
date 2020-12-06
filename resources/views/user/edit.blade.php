@@ -1,13 +1,20 @@
 @extends('adminlte::page')
 
-@section('title', 'Admin')
+@section('title', '| Page User')
 
 @section('content_header')
-    <h1>Gestion de consultation</h1>
+    <h1  class="text-center">Controler les utilisateures !</h1>
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+                Edit User
+        </div>
+    </div>
+
 @stop
 
 @section('css')
