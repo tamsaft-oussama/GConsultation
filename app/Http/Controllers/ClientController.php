@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
@@ -27,25 +28,35 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'numTel' => 'bail|required|max:10|min:10',
+            'numTel' => 'bail|required|unique:clients|max:10|min:10',
             'ville'  => 'bail|required',
         ]);
+
+        $user               = User::find($request->input('user_id'));
         $client             = new Client();
         $client->numTel     = $request->input('numTel');
         $client->ville      = $request->input('ville');
-        $client->user_id    = $request->input('user_id');
-        $client->save();
-        return response()->json($client);
+        $user->clients()->save($client);
+        return redirect()->route('reclamation.index',['client'=>Client::find($client->id)]);
     }
 
-    public function search(Request $request){
-        $data = $request->input('numTel');
-        if($data!=''){
-            $client = Client::where('numTel',$data)->get();
-            return $client;
-        }else{
-            return view('client.index',['user'=>Auth::user()]);
+    public function search(){
+        if(isset($_POST['search'])){
+            $client = Client::where('numTel',$_POST['search'])->with('reclamations')->first();
+            if($client){
+                $user   = Auth::user();
+                if($user->count > 0){
+                    $user->count = $user->count -1 ;
+                    $user->save();
+                }else{
+                    $message = "!! charger votre solde pour faire cette opération";
+                    return view('client.index',['user'=>Auth::user(),'message'=>$message]);
+                }
+            }
+            return view('client.show',['client'=>$client->id,'data'=>$client])->with('user');
         }
+        $message = "Cette Client n'existe pas dans la base de donné,vous pouvez l'ajouter";
+        return view('client.index',['user'=>Auth::user(),'message'=>$message]);
     }
 
 }

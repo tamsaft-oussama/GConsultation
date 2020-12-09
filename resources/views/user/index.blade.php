@@ -10,37 +10,39 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-12">
-            <table class="table table-hover table-bordered text-center">
-                <thead class="bg-info">
-                  <tr>
-                    <th scope="col">Nom Complete</th>
-                    <th scope="col">Email </th>
-                    <th scope="col">Solde de recherche</th>
-                    <th scope="col">La date de création</th>
-                    <th scope="col">Option</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $user)
-                  <tr>
-                    <th scope="row">{{ $user->name }}</th>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->count }} <i class="fas fa-coins"></i>
-                    </td>
-                    <td>{{ $user->created_at }}</td>
-                    <td>
-                        <form action="{{ route('user.destroy',['user'=>$user->id]) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button  href="/" class="btn btn-danger"><i class="fas fa-trash fa-sm"></i></button>
-                        </form>
-                    </td>
-                  </tr>
-                  @endforeach
-                </tbody>
-            </table>
-
+            @foreach($users as $user)
+                <div class="col-md-4">
+                    <div class="card bg-light">
+                        <div class="card-header text-muted border-bottom-0">
+                            {{ $user->role }}
+                        </div>
+                        <div class="card-body pt-0">
+                        <div class="row">
+                            <div class="col-7">
+                            <h2 class="lead"><b>{{ $user->name }}</b></h2>
+                            <h2 class="text-muted text-md">Solde: <span class="badge badge-primary">{{ $user->count }} <i class="fas fa-search-dollar"></i></span> </h2>
+                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> {{ $user->email }}</li>
+                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-calendar-alt"></i></span> {{ $user->created_at }}</li>
+                            </ul>
+                            </div>
+                            <div class="col-5 text-center">
+                            <img src="../../dist/img/user1-128x128.jpg" alt="" class="img-circle img-fluid">
+                            </div>
+                        </div>
+                        </div>
+                        <div class="card-footer">
+                        <div class="text-right">
+                            <form action="{{ route('user.destroy',['user'=>$user->id]) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button  href="/" class="btn btn-danger"><i class="fas fa-trash fa-sm"></i></button>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -61,7 +63,6 @@
                 </div>
                 </div>
             </div>
-
             </div>
         </div>
     </div>

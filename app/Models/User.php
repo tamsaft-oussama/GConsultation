@@ -80,6 +80,12 @@ class User extends Authenticatable
 
     public function clients()
     {
-        return $this->hasMany('App\Models\Client');
+        return $this->hasMany(Client::class);
     }
+
+    public function reclamation()
+    {
+        return $this->hasOne(Reclamation::class);
+    }
+
 }

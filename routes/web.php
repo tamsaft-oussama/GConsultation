@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ReclamationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,7 +23,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::resource('/user',UserController::class);
-Route::resource('/client',ClientController::class);
-Route::get('/client',[ClientController::class,'search'])->name('client.search');
+Route::middleware(['auth'])->group(function () {
+    Route::resource('/user',UserController::class)->only(['index', 'destroy']);
+    Route::resource('/client',ClientController::class)->only(['index', 'store']);
+    Route::post('/client-search',[ClientController::class,'search'])->name('client.search');
+    Route::post('/reclamation/{reclamation}',[ReclamationController::class,'addReclamation'])->name('addReclamation');
+    Route::resource('/reclamation',ReclamationController::class)->except(['create', 'show','destroy','update','edit']);
+});
 

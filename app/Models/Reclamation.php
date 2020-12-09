@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class Reclamation extends Model
 {
     use HasFactory;
 
@@ -13,12 +13,11 @@ class Client extends Model
      * The attributes that are mass assignable.
      *
      * @var array
-    */
+     */
     protected $fillable = [
-        'nom',
-        'email',
-        'ville',
-        'numTel',
+        'commentaire',
+        'user_id',
+        'client_id',
     ];
 
     public function user()
@@ -26,9 +25,9 @@ class Client extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function reclamations()
+    public function client()
     {
-        return $this->hasMany(Reclamation::class);
+        return $this->belongsTo(Client::class);
     }
 
 }
