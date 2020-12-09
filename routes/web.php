@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ReclamationController;
+use App\Http\Controllers\HistoriqueController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,5 +31,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/client-search',[ClientController::class,'search'])->name('client.search');
     Route::post('/reclamation/{reclamation}',[ReclamationController::class,'addReclamation'])->name('addReclamation');
     Route::resource('/reclamation',ReclamationController::class)->except(['create', 'show','destroy','update','edit']);
+    Route::resource('/historique',HistoriqueController::class)->only(['index']);
 });
 

@@ -260,6 +260,11 @@ return [
             'url'         => '',
             'icon'        => 'fas fa-fw fa-clipboard-list',
         ],
+        [
+            'text'        => 'Historique',
+            'url'         => '/historique',
+            'icon'        => 'fas fa-fw fa-history',
+        ],
     ],
 
     /*

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\User;
+use App\Models\Historique;
 use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
@@ -46,8 +47,13 @@ class ClientController extends Controller
             if($client){
                 $user   = Auth::user();
                 if($user->count > 0){
-                    $user->count = $user->count -1 ;
+                    $user->count            = $user->count -1 ;
                     $user->save();
+                    $historique             = new Historique();
+                    $historique->user_id    = Auth::user()->id;
+                    $historique->tel_client  = $client->numTel;
+                    $historique->save();
+
                 }else{
                     $message = "!! charger votre solde pour faire cette opération";
                     return view('client.index',['user'=>Auth::user(),'message'=>$message]);
