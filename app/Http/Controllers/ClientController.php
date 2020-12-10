@@ -58,8 +58,9 @@ class ClientController extends Controller
                     $message = "!! charger votre solde pour faire cette opération";
                     return view('client.index',['user'=>Auth::user(),'message'=>$message]);
                 }
+
+                return view('client.show',['client'=>$client->id,'data'=>$client])->with('user');
             }
-            return view('client.show',['client'=>$client->id,'data'=>$client])->with('user');
         }
         $message = "Cette Client n'existe pas dans la base de donné,vous pouvez l'ajouter";
         return view('client.index',['user'=>Auth::user(),'message'=>$message]);
