@@ -27,7 +27,7 @@
                             </ul>
                             </div>
                             <div class="col-5 text-center">
-                            <img src="../../dist/img/user1-128x128.jpg" alt="" class="img-circle img-fluid">
+                            <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" class="img-circle img-fluid" style="width:60px;height:60px!important">
                             </div>
                         </div>
                         </div>
