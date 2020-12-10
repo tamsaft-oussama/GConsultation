@@ -17,10 +17,10 @@
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search" id="search">
 
                     <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
+                      <button type="submit" class="btn btn-default" >
                         <i class="fas fa-search"></i>
                       </button>
                     </div>
@@ -29,7 +29,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0" style="height: 300px;">
-                <table class="table table-head-fixed text-nowrap">
+                <table class="table table-head-fixed text-nowrap" id="employee_table">
                   <thead>
                     <tr>
                       <th>ID</th>
@@ -59,6 +59,7 @@
     </div>
  </div>
 
+ 
 @stop
 
 @section('css')
@@ -67,6 +68,32 @@
 
 @section('js')
     <script>
+      $(document).ready(function(){
 
+        $('#search').keyup(function(){  
+          search_table($(this).val());  
+        });  
+
+           function search_table(value){  
+                $('#employee_table tbody tr').each(function(){  
+                     var found = 'false';  
+                     $(this).each(function(){  
+                          if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)  
+                          {  
+                               found = 'true';  
+                          }  
+                     });  
+                     if(found == 'true')  
+                     {  
+                          $(this).show();  
+                     }  
+                     else  
+                     {  
+                          $(this).hide();  
+                     }  
+                });  
+           } 
+
+      });
     </script>
 @stop

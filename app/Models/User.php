@@ -70,7 +70,7 @@ class User extends Authenticatable
 
     public function adminlte_desc()
     {
-        return 'Admin';
+        return $this->role;
     }
 
     public function adminlte_profile_url()
