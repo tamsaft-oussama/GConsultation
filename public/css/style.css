@@ -1,0 +1,10 @@
+
+/* Main style */
+.borderTop{
+    
+    border-top-width: 3px !important;
+    border-top-color: #38c172 !important;
+}
+.nav-link{color: whitesmoke;}
+.nav-link:hover{color: silver;}
+.capitalize{ text-transform: capitalize; }

@@ -31,6 +31,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'isAdmin'
     ];
 
     /**
@@ -70,7 +71,7 @@ class User extends Authenticatable
 
     public function adminlte_desc()
     {
-        return $this->role;
+        return $this->role == 1 ? 'Admin':'Utilisateur';
     }
 
     public function adminlte_profile_url()
@@ -83,9 +84,9 @@ class User extends Authenticatable
         return $this->hasMany(Client::class);
     }
 
-    public function reclamation()
+    public function reclamations()
     {
-        return $this->hasOne(Reclamation::class);
+        return $this->hasMany(Reclamation::class);
     }
 
 }

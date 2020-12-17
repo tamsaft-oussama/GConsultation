@@ -239,31 +239,42 @@ return [
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'can'  => 'false'
         ],
         [
             'text' => 'Dashboard',
             'url'  => '/dashboard',
+            'can'         => 'show-menu',
         ],
         [
             'text'        => 'Crédibilité client',
             'url'         => '/client',
             'icon'        => 'far fa-fw fa-thumbs-up',
+            'can'         => 'show-menu',
         ],
         [
             'text'        => 'Gérer les utilisateurs',
             'url'         => '/user',
             'icon'        => 'far fa-fw fa-user',
+            'can'         => 'show-menu',
         ],
         [
-            'text'        => 'Ouvrir un ticket',
-            'url'         => '',
-            'icon'        => 'fas fa-fw fa-clipboard-list',
+            'text'        => ' Gérer les packs',
+            'url'         => '/pack',
+            'icon'        => 'fas fa-poll-h',
+            'can'         => 'show-menu',
+        ],
+        [
+            'text'        => ' Gérer tes ticktes',
+            'url'         => '/ticket',
+            'icon'        => 'fas fa-clipboard-list',
+            'can'         => 'show-menu',
         ],
         [
             'text'        => 'Historique',
             'url'         => '/historique',
             'icon'        => 'fas fa-fw fa-history',
+            'can'         => 'show-menu',
         ],
     ],
 

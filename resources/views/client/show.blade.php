@@ -28,8 +28,17 @@
         <div class="card card-outline card-danger">
           <div class="card-header">
             <h3 class="card-title">
-              <i class="fas fa-lightbulb"></i>
-              <span class="info-box-text">Crédibilité :</span>
+              @switch($data->reclamations_count)
+                  @case($data->reclamations_count > 1)
+                     <i class="fas fa-lightbulb text-warning"></i> 
+                  @break
+                  @case($data->reclamations_count > 2)
+                     <i class="fas fa-lightbulb text-danger"></i> 
+                  @break
+                  @default
+                     <i class="fas fa-lightbulb text-success"></i> 
+              @endswitch
+              <span class="info-box-text">Crédibilité : {{ $data->reclamations_count }} Réclamation(s)</span>
             </h3>
           </div>
           <!-- /.card-header -->

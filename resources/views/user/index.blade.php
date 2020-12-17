@@ -14,7 +14,11 @@
                 <div class="col-md-4">
                     <div class="card bg-light">
                         <div class="card-header text-muted border-bottom-0">
-                            {{ $user->role }}
+                            @if ($user->role==1)
+                              Admin  
+                            @else
+                              Utilisateur
+                            @endif
                         </div>
                         <div class="card-body pt-0">
                         <div class="row">
@@ -32,13 +36,22 @@
                         </div>
                         </div>
                         <div class="card-footer">
-                        <div class="text-right">
+                        <div class="text-right float-right">
                             <form action="{{ route('user.destroy',['user'=>$user->id]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button  href="/" class="btn btn-danger"><i class="fas fa-trash fa-sm"></i></button>
                             </form>
                         </div>
+                        @if($user->role == 0)
+                        <div class="float-right mr-3">
+                            <form action="{{ route('user.make.admin') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $user->id }}">
+                                <button  type="submit" class="btn btn-dark">Faire un administrateur</button>
+                            </form>
+                        </div>
+                        @endif
                         </div>
                     </div>
                 </div>

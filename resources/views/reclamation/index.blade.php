@@ -25,7 +25,7 @@
                           <h6 class="info-box-number">{{ $client->numTel ?? 'inconnu' }}</h6>
                         </div>
                         <!-- /.info-box-content -->
-                      </div>
+                    </div>
                 </p>
                 <a href="#" class="card-link btn btn-dark btn-xs float-left" data-toggle="modal" data-target="#addClienInfo">Ajouter autre information</a>
                 <!-- Modal -->

@@ -43,7 +43,7 @@ class ClientController extends Controller
 
     public function search(){
         if(isset($_POST['search'])){
-            $client = Client::where('numTel',$_POST['search'])->with('reclamations')->first();
+            $client = Client::where('numTel',$_POST['search'])->with('reclamations')->withCount('reclamations')->first();
             if($client){
                 $user   = Auth::user();
                 if($user->count > 0){
@@ -64,6 +64,11 @@ class ClientController extends Controller
         }
         $message = "Cette Client n'existe pas dans la base de donné,vous pouvez l'ajouter";
         return view('client.index',['user'=>Auth::user(),'message'=>$message]);
+    }
+    
+    public function show(Client $client)
+    {
+        return view('client.show', ['client' => $client]);
     }
 
 }
