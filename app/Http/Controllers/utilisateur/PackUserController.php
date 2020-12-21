@@ -11,7 +11,7 @@ use App\Models\Pack;
 class PackUserController extends Controller
 {
     public function index(){
-        return view('utilisateur.pack.index',['user'=>Auth::user()]);
+        return view('utilisateur.pack.index',['user' => Auth::user(),'packs' => Pack::cursor()]);
     }
 
     public function show($id)

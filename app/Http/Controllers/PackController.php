@@ -45,19 +45,21 @@ class PackController extends Controller
      */
     public function store(Request $request)
     {
-        $pack = new Pack();
-        $pack->titre = $request->titre;
-        if($request->offre){
-            $pack->offre = $request->offre;
-        }
-        $pack->solde = $request->solde;
-        $pack->prix = $request->prix;
-        if($request->description){
-            $pack->description = $request->description;
-        }
-        if($request->active){
-            $pack->active = $request->active;
-        }
+        $request->validate([
+            'titre' => 'required',
+            'solde' => 'required',
+            'prix'  => 'required',
+        ]);
+
+        $pack               = new Pack();
+        $pack->user_id      = Auth::id();
+        $pack->titre        = $request->titre;
+        $pack->offre        = $request->offre;
+        $pack->solde        = $request->solde;
+        $pack->prix         = $request->prix;
+        $pack->description  = $request->description;
+        $pack->active       = $request->active;
+
         $pack->save();
         return back()->with('success', 'Pack a été ajouté!');
     }

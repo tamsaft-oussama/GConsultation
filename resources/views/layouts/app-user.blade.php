@@ -27,21 +27,23 @@
             <a class="nav-link" href="{{ route('client-user.index') }}">Client</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('ticket.index') }}">Ouvrir un ticket</a>
+            <a class="nav-link" href="{{ route('ticket-user.index') }}">Ouvrir un ticket</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('utilisateur.index') }}">Espace Client</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
+          <img src="{{ Auth::user()->profile_photo_path }}" alt="{{ Auth::user()->name }}" width="40px" class="rounded">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Profile
+              {{ Auth::user()->name }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="{{ route('historique-user.userIndex') }}"><i class="fas fa-history"></i> Historique</a>
+              <a class="dropdown-item" href="/profile-user"><i class="fas fa-user text-success"></i> Profile</a>
+              <a class="dropdown-item" href="{{ route('historique-user.userIndex') }}"><i class="fas fa-history text-success"></i> Historique</a>
               <a class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="cursor:pointer">
-                <i class="fa fa-fw fa-power-off"></i>
+                <i class="fa fa-fw fa-power-off text-danger"></i>
                 Déconnecter
               </a>
               <form id="logout-form" action="/logout" method="POST" style="display: none;">
@@ -111,7 +113,6 @@
     $('#table_id').DataTable();
   });
 </script>
-
 @yield('js')
 
 </body>

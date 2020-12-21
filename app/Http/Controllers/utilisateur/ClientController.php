@@ -109,4 +109,9 @@ class ClientController extends Controller
         }
         return true;
     }
+
+    public function profile()
+    {
+        return view('utilisateur.profile.index',['user' => Auth::user()]);
+    }
 }

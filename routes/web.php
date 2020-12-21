@@ -11,6 +11,7 @@ use App\Http\Controllers\PackController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ReponseController;
 use App\Http\Controllers\PaiementController;
+use App\Http\Controllers\utilisateur\ProfileController;
 
 use App\Http\Controllers\utilisateur\PackUserController;
 use App\Http\Controllers\utilisateur\TickettController  as TicketController2;
@@ -53,15 +54,19 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/paiement',[PaiementController::class,'store'])->name('paiement.add');
 });
 
-Route::group(['middleware' => 'auth','prefix'=>'utilisateur'], function () {
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('profile-user', [ClientController2::class,'profile'])->name('profile-user');
     Route::resource('utilisateur-pack', PackUserController::class)->only('index','show');
-    Route::get('/ticket',[TicketController2::class,'index'])->name('ticket.index');  
+    Route::get('/ticket-user',[TicketController2::class,'index'])->name('ticket-user.index');
+    Route::post('/ticket-user',[TicketController2::class,'store'])->name('ticket-user.store');
     Route::get('/historique-user',[HistoriqueController::class,'userIndex'])->name('historique-user.userIndex');  
     Route::get('/utilisateur',[UtilisateurController::class,'index'])->name('utilisateur.index');  
     Route::get('/client-user',[ClientController2::class,'index'])->name('client-user.index');  
     Route::post('/client-user',[ClientController2::class,'store'])->name('client-user.store');  
     Route::get('/client-user-search',[ClientController2::class,'search'])->name('client-user.search');
     Route::post('client-user/{reclamation}',[ClientController2::class,'addReclamation'])->name('client-user.reclamation');
+    Route::post('profile-user/store',[ProfileController::class,'store'])->name('profile-user.store');
+    Route::get('profile-user/destroy',[ProfileController::class,'destroy'])->name('profile-user.destroy');
 });
 
 

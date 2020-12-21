@@ -9,6 +9,8 @@ class Ticket extends Model
 {
     use HasFactory;
 
+    Protected $fillable = ['email','objet','priorite','departement','message','user_id'];
+
     public function user()
     {
         return $this->belongsTo(User::class);

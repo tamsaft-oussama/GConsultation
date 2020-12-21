@@ -71,4 +71,6 @@ class ClientController extends Controller
         return view('client.show', ['client' => $client]);
     }
 
+
+
 }

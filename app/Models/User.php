@@ -89,4 +89,9 @@ class User extends Authenticatable
         return $this->hasMany(Reclamation::class);
     }
 
+    public function packs()
+    {
+        return $this->hasMany(Pack::class);
+    }
+
 }
