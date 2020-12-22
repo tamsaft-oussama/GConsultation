@@ -34,13 +34,13 @@
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-          <img src="{{ Auth::user()->profile_photo_path }}" alt="{{ Auth::user()->name }}" width="40px" class="rounded">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="{{ Auth::user()->profile_photo_path }}" alt="{{ Auth::user()->name }}" width="25px"  height="25px" class="rounded-circle">
               {{ Auth::user()->name }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="/profile-user"><i class="fas fa-user text-success"></i> Profile</a>
+              <a class="dropdown-item" href="{{ route('profile-user.index') }}"><i class="fas fa-user text-success"></i> Profile</a>
               <a class="dropdown-item" href="{{ route('historique-user.userIndex') }}"><i class="fas fa-history text-success"></i> Historique</a>
               <a class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="cursor:pointer">
                 <i class="fa fa-fw fa-power-off text-danger"></i>
@@ -69,35 +69,64 @@
           </div>
         </div>
         <div class="card borderTop mb-3" style="max-width:100%">
-          <div class="card-header"><i class="fas fa-user"></i> Ajouter un client</div>
-          <div class="card-body text-secondary">
-            <form method="POST" action="{{ route('client-user.store') }}">
-              @csrf
-              @method('POST')
-                <div class="form-group">
-                    @if ($errors->has('numTel'))
-                    <span class="text-danger">{{ $errors->first('numTel') }}</span>
-                    @endif
-                  <input type="text" class="form-control" id="tel" name="numTel" placeholder="Numéro de téléphone">
-                  <input type="hidden" name="user_id" value="{{ $user->id }}">
-                </div>
-                <div class="form-group">
-                    @if ($errors->has('numTel'))
-                    <span class="text-danger">{{ $errors->first('ville') }}</span>
-                    @endif
-                    <input type="text" class="form-control" id="ville" name="ville" placeholder="Ville">
-                </div>
-                <div class="form-group">
-                  @if ($errors->has('commentaire'))
-                      <span class="text-danger">{{ $errors->first('commentaire') }}</span>
-                  @endif
-                  <textarea class="form-control" rows="3" name="commentaire" placeholder="Posé votre réclamation"></textarea>
-                  <input type="hidden" name="user" value="{{ $user->id }}">
-                </div>
-                  <button type="submit" class="btn btn-success btn-block btn-sm"><i class="fas fa-save"></i> Enregistrer </button>
-          </form>
+          <div class="card-header"><i class="fas fa-scroll"></i> Vos Tickets</div>
+          <div class="card-body text-secondary px-0 py-0">
+            <ul class="list-group">
+              @forelse($user->tickets as $ticket)
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="{{ route('ticket-user.show',['ticket_user'=>$ticket->id]) }}">{{ $ticket->objet }}</a> 
+                @if ($ticket->etat)
+                <span class="badge badge-danger badge-pill">Fermé</span>
+                @else
+                <span class="badge badge-success badge-pill">Ouvert</span>
+                @endif
+              </li>
+              @empty
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Il n'ya pad de ticket
+                <span class="badge badge-success badge-pill">0</span>
+              </li>
+              @endforelse
+            </ul>
           </div>
         </div>
+        <div class="card borderTop mb-3 userCard">
+          <h5 class="card-header">
+              <a data-toggle="collapse" href="#collapse-example" aria-expanded="true" aria-controls="collapse-example" id="heading-example" class="text-dark d-block">
+                  <i class="fa fa-chevron-down pull-right"></i>
+                  Ajouter un client
+              </a>
+          </h5>
+          <div id="collapse-example" class="collapse hide" aria-labelledby="heading-example">
+              <div class="card-body">
+                <form method="POST" action="{{ route('client-user.store') }}">
+                  @csrf
+                  @method('POST')
+                    <div class="form-group">
+                        @if ($errors->has('numTel'))
+                        <span class="text-danger">{{ $errors->first('numTel') }}</span>
+                        @endif
+                      <input type="text" class="form-control" id="tel" name="numTel" placeholder="Numéro de téléphone">
+                      <input type="hidden" name="user_id" value="{{ $user->id }}">
+                    </div>
+                    <div class="form-group">
+                        @if ($errors->has('numTel'))
+                        <span class="text-danger">{{ $errors->first('ville') }}</span>
+                        @endif
+                        <input type="text" class="form-control" id="ville" name="ville" placeholder="Ville">
+                    </div>
+                    <div class="form-group">
+                      @if ($errors->has('commentaire'))
+                          <span class="text-danger">{{ $errors->first('commentaire') }}</span>
+                      @endif
+                      <textarea class="form-control" rows="3" name="commentaire" placeholder="Posé votre réclamation"></textarea>
+                      <input type="hidden" name="user" value="{{ $user->id }}">
+                    </div>
+                      <button type="submit" class="btn btn-success btn-block btn-sm"><i class="fas fa-save"></i> Enregistrer </button>
+                </form>
+              </div>
+          </div>
+      </div>
       </div>
 
       <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">

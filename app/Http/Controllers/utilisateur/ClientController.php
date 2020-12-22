@@ -14,13 +14,11 @@ use App\Models\Historique;
 class ClientController extends Controller
 {
     public function index(){
-        return view('utilisateur.client.index',['user'=>Auth::user()]);
+        return view('utilisateur.client.index',['user'=>Auth::user(),'ticket'=>Auth::user()->tickets]);
     }
 
     public function store(Request $request){
 
-        Alert::success('Votre réclamation à été bien enregistrer', 'Success Message');
-        
         $request->validate([
             'numTel'        => 'bail|required|unique:clients|max:10|min:10',
             'ville'         => 'bail|required',

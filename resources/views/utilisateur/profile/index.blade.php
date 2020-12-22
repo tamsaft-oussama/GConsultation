@@ -17,7 +17,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Old Password</label>
-                    <input type="password" class="form-control" id="password" name="oldpassword"  value="{{ Auth::user()->password }}">
+                    <input type="password" class="form-control" id="password" name="oldpassword">
                 </div>
                 <div class="form-group">
                     <label for="password">New Password</label>
@@ -26,11 +26,11 @@
             </div>
             <div class="col-sm-6 mt-3 text-center">
                 <div class="form-group">
-                    <img class="rounded-circle" src="{{ Auth::user()->profile_photo_path }}" alt="{{ Auth::user()->name }}" width="150px">
+                    <img class="rounded-circle" src="{{ Auth::user()->profile_photo_path }}" alt="{{ Auth::user()->name }}" width="150px" height="150px">
                 </div>
                 <div class="form-group">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="image" name="omage">
+                        <input type="file" class="custom-file-input" id="image" name="image">
                         <label class="custom-file-label" for="image" data-browse="Importer Image"><i class="fas fa-camera-retro text-success" style="font-size: 25px;"></i></label>
                     </div>
                 </div>

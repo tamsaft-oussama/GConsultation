@@ -2,6 +2,13 @@
 #paypal-button-container{
   width: 100%!important
 }
+/* card add user style */
+.userCard .card-header .fa {
+  transition: .3s transform ease-in-out;
+}
+.userCard .card-header .collapsed .fa {
+  transform: rotate(90deg);
+}
 /* Main style */
 .borderTop{
     

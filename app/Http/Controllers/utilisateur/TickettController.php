@@ -15,6 +15,7 @@ class TickettController extends Controller
     }
 
     public function store(Request $request){
+        dd('Sotre');
         $request->validate([
             'objet'         => 'required',
             'priorite'      => 'required',
@@ -32,4 +33,11 @@ class TickettController extends Controller
 
         return redirect()->back();
     }
+
+    public function show($id){
+        $ticket = Ticket::findOrFail($id);
+        $user   = Auth::user();
+        return view('utilisateur.ticket.show',['ticket'=> $ticket,'user' => $user]);
+    }
+
 }
