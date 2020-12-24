@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Ticket;
 
 class User extends Authenticatable
 {
@@ -31,6 +32,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'tel',
+        'ville',
+        'adresse',
         'isAdmin'
     ];
 
@@ -97,6 +101,10 @@ class User extends Authenticatable
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
+    }
+
+    public static function getUserTickets($user){
+        return Ticket::orderBy('created_at','desc')->where('user_id',$user->id)->limit(1)->get();
     }
 
 }

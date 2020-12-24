@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\User;
 use App\Models\Client;
 use App\Models\Reclamation;
 use App\Models\Historique;
@@ -14,7 +15,7 @@ use App\Models\Historique;
 class ClientController extends Controller
 {
     public function index(){
-        return view('utilisateur.client.index',['user'=>Auth::user(),'ticket'=>Auth::user()->tickets]);
+        return view('utilisateur.client.index',['user'=>Auth::user(),'ticket'=>User::getUserTickets(Auth::user())]);
     }
 
     public function store(Request $request){

@@ -227,3 +227,32 @@
   color: #FF6F61;
   background: #38c172;
 }
+/*  carousel style */
+.borderTop .lesson {
+  margin: 20px
+}
+
+.borderTop section {
+    margin: 20px auto;
+    width: 940px;
+    text-align: center;
+    font-weight: bold
+}
+
+.borderTop .item {
+    width: 10%;
+    float: left;
+    background-color: #EEE;
+    height: 200px;
+    line-height: 200px;
+    cursor: pointer;
+    border-right: 1px solid #FFF
+}
+
+.borderTop .info {
+    float: left;
+    background-color: #DDD;
+    height: 200px;
+    width: 0;
+    display: none
+}

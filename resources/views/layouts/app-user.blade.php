@@ -36,7 +36,7 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img src="{{ Auth::user()->profile_photo_path }}" alt="{{ Auth::user()->name }}" width="25px"  height="25px" class="rounded-circle">
+              <img src="{{ Auth::user()->profile_photo_path }}" alt="{{ Auth::user()->name }}" style="object-fit: cover!important;" width="25px"  height="25px" class="rounded-circle">
               {{ Auth::user()->name }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -72,7 +72,7 @@
           <div class="card-header"><i class="fas fa-scroll"></i> Vos Tickets</div>
           <div class="card-body text-secondary px-0 py-0">
             <ul class="list-group">
-              @forelse($user->tickets as $ticket)
+              @forelse(Auth::user()::getUserTickets(Auth::user()) as $ticket)
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <a href="{{ route('ticket-user.show',['ticket_user'=>$ticket->id]) }}">{{ $ticket->objet }}</a> 
                 @if ($ticket->etat)

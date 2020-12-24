@@ -20,6 +20,9 @@ class ProfileController extends Controller
         $request->validate([
             'name'          => 'required',
             'email'         => 'required',
+            'tel'           => 'required',
+            'ville'         => 'min:2',
+            'adresse'       => 'min:6',
             'image'         => 'nullable|mimes:jpg,gif,png'
         ]);
 
@@ -27,6 +30,9 @@ class ProfileController extends Controller
         if($request->input('password') !== null && Hash::check($request->input('oldpassword'),$user->password)){
             $user->name     = $request->input('name');
             $user->email    = $request->input('email');
+            $user->tel      = $request->input('tel');
+            $user->ville    = $request->input('ville');
+            $user->adresse   = $request->input('adresse');
             $user->password = Hash::make($request->input('password'));
             $user->profile_photo_path = $this->storePhotoIfExist($request);
             $user->save();
@@ -34,6 +40,9 @@ class ProfileController extends Controller
         }else{
             $user->name     = $request->input('name');
             $user->email    = $request->input('email');
+            $user->tel      = $request->input('tel');
+            $user->ville    = $request->input('ville');
+            $user->adresse   = $request->input('adresse');
             $user->profile_photo_path = $this->storePhotoIfExist($request);
             $user->save();
             return redirect()->back();

@@ -15,7 +15,6 @@ class TickettController extends Controller
     }
 
     public function store(Request $request){
-        dd('Sotre');
         $request->validate([
             'objet'         => 'required',
             'priorite'      => 'required',

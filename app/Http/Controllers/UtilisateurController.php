@@ -14,4 +14,5 @@ class UtilisateurController extends Controller
         $historique = Historique::cursor()->where('user_id',Auth::id());
         return view('utilisateur.index',['historiques'=> $historique,'user'=> Auth::user(),'reclamations'=> $reclamationCount]);
     }
+
 }
