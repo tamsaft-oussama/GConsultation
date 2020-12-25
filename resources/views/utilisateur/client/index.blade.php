@@ -23,7 +23,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="card borderTop  mb-3" style="max-width:100%">
     <div class="card-header"><i class="fas fa-user"></i> Informations Client</div>
     <div class="card-body text-secondary">
@@ -41,18 +41,18 @@
       @endempty
    </div>
   </div>
-  
+
   <div class="card borderTop  mb-3" style="max-width:100%">
     <div class="card-header">
       <div class="row">
         <div class="col">
           @isset($client)
             @if($client->reclamations_count < 2)
-            <i class="fas fa-smile text-success"></i> 
+            <i class="fas fa-smile text-success"></i>
             @elseif($client->reclamations_count >= 2 && $client->reclamations_count < 3)
-            <i class="fas fa-meh text-warning"></i> 
+            <i class="fas fa-meh text-warning"></i>
             @elseif($client->reclamations_count > 2)
-            <i class="fas fa-frown text-danger"></i> 
+            <i class="fas fa-frown text-danger"></i>
             @endif
             <span class="info-box-text">Crédibilité : {{ $client->reclamations_count }} Réclamation(s)</span>
           @endisset
@@ -105,26 +105,22 @@
     <div class="card-body text-secondary">
       {{-- Show reclamation --}}
       @isset($client)
-        <table id="table_id" class="display table table-success">
-          <thead>
-              <tr>
-                  <th>La date de réclamation</th>
-                  <th>La réclamation</th>
-                  <th>Le personne qui réclamé</th>
-              </tr>
-          </thead>
-          <tbody>
-              @forelse ($client->reclamations as $r)
-              <tr>
-                  <td>Posté à {{ $r->created_at }}</td>
-                  <td>{{ $r->commentaire }}</td>
-                  <td>Oussama Tamsaft</td>
-              </tr>
-              @empty
-              <p>Il n'y a pas de réclamation à ce client</p>
-              @endforelse
-          </tbody>
-        </table>
+      @forelse ($client->reclamations as $r)
+      <div class="card borderLeft mt-2">
+          <div class="card-body row">
+              <div class="col-3 d-flex align-items-center justify-content-center">
+              <img src="{{ $r->user->profile_photo_path }}" alt="{{ $r->user->name }}"  width="80px" height="80px" class="rounded-circle obFit"/>
+              </div>
+              <div class="col-9 card-header">
+                <h5>Réclamé à {{ date('d-m-Y', strtotime($r->created_at))}}</h5>
+                <p>{{ $r->commentaire }}</p>
+                <span>Réclamé par <strong class="text-success"> {{ $r->user->name }} </strong> </span>
+              </div>
+          </div>
+      </div>
+      @empty
+      <p>Il n'y a pas de réclamation à ce client</p>
+      @endforelse
       @endisset
       @empty($client)
         <div class="card-text">Pas d'information</div>

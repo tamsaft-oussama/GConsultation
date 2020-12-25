@@ -18,7 +18,7 @@ class CreateClientsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('numTel');
-            $table->string('ville');
+            $table->string('ville')->nullable();
             $table->timestamps();
         });
     }
