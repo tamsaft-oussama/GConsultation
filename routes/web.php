@@ -34,10 +34,15 @@ Route::get('/', function () {
     return view('welcome', ['packs' => $packs]);
 });
 
+Route::post('/user/send-sms',[UserController::class,'sendSMS'])->name('user-sms');
+Route::get('validate',function(){
+    return view('auth.validate');
+});
+
 Route::group(['middleware' => 'admin'], function () {
 
     Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
-    Route::get('/historique',[HistoriqueController::class,'index']);  
+    Route::get('/historique',[HistoriqueController::class,'index']);
     Route::resource('/user',UserController::class)->only(['index','destroy']);
     Route::post('/user-make-admin',[UserController::class,'makeAdmin'])->name('user.make.admin');
     Route::resource('/client',ClientController::class)->only(['index','store','show']);
@@ -57,10 +62,10 @@ Route::group(['middleware' => 'admin'], function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('utilisateur-pack', PackUserController::class)->only('index','show');
     Route::resource('/ticket-user',TicketController2::class);
-    Route::get('/historique-user',[HistoriqueController::class,'userIndex'])->name('historique-user.userIndex');  
-    Route::get('/utilisateur',[UtilisateurController::class,'index'])->name('utilisateur.index');  
-    Route::get('/client-user',[ClientController2::class,'index'])->name('client-user.index');  
-    Route::post('/client-user',[ClientController2::class,'store'])->name('client-user.store');  
+    Route::get('/historique-user',[HistoriqueController::class,'userIndex'])->name('historique-user.userIndex');
+    Route::get('/utilisateur',[UtilisateurController::class,'index'])->name('utilisateur.index');
+    Route::get('/client-user',[ClientController2::class,'index'])->name('client-user.index');
+    Route::post('/client-user',[ClientController2::class,'store'])->name('client-user.store');
     Route::get('/client-user-search',[ClientController2::class,'search'])->name('client-user.search');
     Route::post('client-user/{reclamation}',[ClientController2::class,'addReclamation'])->name('client-user.reclamation');
     Route::get('profile-user', [ClientController2::class,'profile'])->name('profile-user.index');

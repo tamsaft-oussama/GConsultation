@@ -106,15 +106,17 @@
       {{-- Show reclamation --}}
       @isset($client)
       @forelse ($client->reclamations as $r)
-      <div class="card borderLeft mt-2">
+      <div class="card mt-2">
+          <div class="card-header bg-dark text-light">
+            <span>Réclamé par <strong class="text-success"> {{ $r->user->name }} </strong> </span>
+            <span> à {{ date('d-m-Y', strtotime($r->created_at))}}</span>
+          </div>
           <div class="card-body row">
-              <div class="col-3 d-flex align-items-center justify-content-center">
-              <img src="{{ $r->user->profile_photo_path }}" alt="{{ $r->user->name }}"  width="80px" height="80px" class="rounded-circle obFit"/>
+              <div class="col-1 d-flex align-items-center justify-content-center">
+              <img src="{{ $r->user->profile_photo_path }}" alt="{{ $r->user->name }}"  width="40px" height="40px" class="rounded-circle obFit"/>
               </div>
-              <div class="col-9 card-header">
-                <h5>Réclamé à {{ date('d-m-Y', strtotime($r->created_at))}}</h5>
-                <p>{{ $r->commentaire }}</p>
-                <span>Réclamé par <strong class="text-success"> {{ $r->user->name }} </strong> </span>
+              <div class="col-11 card-header bg-white">
+                {{ $r->commentaire }}
               </div>
           </div>
       </div>

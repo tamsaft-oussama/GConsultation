@@ -21,7 +21,7 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
     use SoftDeletes;
 
-    
+
 
     /**
      * The attributes that are mass assignable.
@@ -35,7 +35,8 @@ class User extends Authenticatable
         'tel',
         'ville',
         'adresse',
-        'isAdmin'
+        'nom',
+        'prenom',
     ];
 
     /**
