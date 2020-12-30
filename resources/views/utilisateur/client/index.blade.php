@@ -109,7 +109,7 @@
       <div class="card mt-2">
           <div class="card-header bg-dark text-light">
             <span>Réclamé par <strong class="text-success"> {{ $r->user->name }} </strong> </span>
-            <span> à {{ date('d-m-Y', strtotime($r->created_at))}}</span>
+            <span> à {{ $r->created_at->diffForHumans()}}</span>
           </div>
           <div class="card-body row">
               <div class="col-1 d-flex align-items-center justify-content-center">
