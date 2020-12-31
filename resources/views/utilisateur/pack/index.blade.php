@@ -12,7 +12,7 @@
                     <div class="ptable-single  d-flex flex-column">
                       <div class="ptable-header">
                         <div class="ptable-title">
-                          <h2>Silver</h2>
+                          <h2>{{ $pack->offre }}</h2>
                         </div>
                         <div class="ptable-price">
                           <h3>{{ $pack->prix }} <small>DH</small></h3>
@@ -22,14 +22,14 @@
                         <div class="ptable-description">
                           <ul>
                             <li>{{ $pack->titre }}</li>
-                            <li>{{ $pack->solde }}</li>
+                            <li><span style="font-weight: bold;">{{ $pack->solde }}</span> <small>consultation</small></li>
                             <li>{{ $pack->description }}</li>
                           </ul>
                         </div>
                       </div>
                       <div class="ptable-footer mt-auto">
                         <div class="ptable-action">
-                          <a href="{{ route('utilisateur-pack.show',['utilisateur_pack' => $pack->id]) }}" class="btn btn-success">Acheter</a>
+                          <a href="{{ route('utilisateur-pack.show',['utilisateur_pack' => $pack->id]) }}" class="btn btn-gold">Acheter</a>
                         </div>
                       </div>
                     </div>

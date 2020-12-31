@@ -22,41 +22,41 @@
 
         <nav class="navbar navbar-expand-lg navbar-light  fixed-top" id="home">
             <div class="container">
-                <a class="navbar-brand  main-color" href="#home">GestionDC</a> <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+                <a class="navbar-brand  main-color" href="#home"><img src="{{ asset('images/logo.png') }}" width="40px" /></a> <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                        <li class="nav-item active">
                            <a class="nav-link" href="#home">Home</a>
                        </li>
                        <li class="nav-item">
-                           <a class="nav-link" href="#about">About us</a>
+                        <a class="nav-link" href="#apropos">A PROPOS</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#experience">Expériens</a>
+                            <a class="nav-link" href="#notreHistoire">Notre Histoire</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#service">Packs</a>
+                            <a class="nav-link" href="#notreMession">Notre Mession</a>
                         </li>
                         <li class="nav-item">
-                             <a class="nav-link" href="#contact">Contact us</a>
+                            <a class="nav-link" href="#notreCommunaute">Notre Communauté</a>
                         </li>
-                        @if (Route::has('login'))
-                        @auth
                         <li class="nav-item">
-                            <a href="{{ url('/dashboard') }}" class="nav-link">Dashboard</a>
+                            <a class="nav-link" href="#contact">Contacter nous</a>
+                        </li>
+                    </ul>
+                    @if (Route::has('login'))
+                    @auth
+                    <ul class="navbar-nav ml-auto list-unstyled">
+                        <li class="nav-item list-unstyled ">
+                            <a href="{{ url('/dashboard') }}" class="nav-link text-light">Dashboard</a>
                         </li>
                         @else
-                        <li class="nav-item">
-                            <a href="{{ route('login') }}" class="nav-link">Login</a>
+                        <li class="nav-item list-unstyled " >
+                            <a href="{{ route('login') }}" class="nav-link text-light">Login</a>
                         </li>
-                        <li class="nav-item">
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="nav-link">Register</a>
-                            @endif
-                        </li>
-                        @endauth
-                   @endif
                     </ul>
+                    @endauth
+                    @endif
                 </div>
             </div>
         </nav>
@@ -72,17 +72,17 @@
                 <div class="carousel-item active">
                     <img alt="First slide" class="d-block w-100 zoominheader" src="{{ asset('images/slide_active.jpg') }}">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5 class="animated bounceInRight" style="animation-delay: 1s">About us</h5>
+                        <h5 class="animated bounceInRight" style="animation-delay: 1s">A Propos</h5>
                         <p class="animated bounceInLeft" style="animation-delay: 2s">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus, voluptatum exercitationem! Officia, qui expedita, deserunt numquam architecto ad, deleniti a incidunt blanditiis voluptate debitis corrupti. Veniam, sint voluptate? Perspiciatis, similique.
+                            Une plate-forme électronique intégrée spécialisée dans le commerce électronique, fournissant une centrale des risques dont les e-commerçants et les entrepreneurs ont besoin, nécessaire pour avoir un taux très bas de retour marchandise et le développement de votre affaire. Stop-Retour est un service en ligne simple et facile à la disposition de tous pour gérer votre business en ligne de manière professionnelle.
                         </p>
-                        <p class="animated bounceInRight" style="animation-delay: 3s"><a class="main-bg-color" href="#about">Fore more info</a></p>
+                        <p class="animated bounceInRight" style="animation-delay: 3s"><a class="main-bg-color" href="#apropos">Plus d'information</a></p>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img alt="Second slide" class="d-block w-100 zoominheader" src="{{ asset('images/slide_2.jpg') }}">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5 class="animated slideInDown" style="animation-delay: 1s">Titre  2</h5>
+                        <h5 class="animated slideInDown" style="animation-delay: 1s">Notre Histoire</h5>
                         <p class="animated fadeInUp" style="animation-delay: 2s">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollit</p>
                         <p class="animated zoomIn" style="animation-delay: 3s"><a class="main-bg-color" href="#">Achter</a></p>
                     </div>
@@ -98,82 +98,85 @@
             </div><a class="carousel-control-prev" data-slide="prev" href="#carouselExampleIndicators" role="button"><span aria-hidden="true" class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" data-slide="next" href="#carouselExampleIndicators" role="button"><span aria-hidden="true" class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
         </div>
 
-        <!-- About us-->
-        <div class="container mt-5 py-5" id="about">
+        <!-- A propos-->
+        <div class="container mt-5 py-5" id="apropos">
+            <h2 class="text-center mb-5 headline">a propos</h2>
             <div class="row">
-                <div class="col-12">
-                    <h2 class="text-center headline">About us</h2>
-                    <p class="text-center py-3">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, nobis! Earum explicabo aperiam magnam reiciendis facere nemo eveniet quam nihil magni nobis, voluptatem vel consectetur officiis labore, dolor cum perspiciatis?
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Nos Expériences -->
-        <div class="imgCoverly mt-5 py-5" id="experience">
-            <div class="coverly bg-shape"></div>
-            <div class="container">
-                <h2 class="text-center mb-5 headline">Expériences</h2>
-                <div class="row text-center">
-                    <div class="col-md-6">
-                        <ul>
-                            <li class="pb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                            <li class="pb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                            <li class="pb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                            <li class="pb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                            <li class="pb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                            <li class="pb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                        </ul>
+                <div class="col-md-6 d-flex align-items-center">
+                    <div class="text-sm-center text-md-left">
+                        <h6><i class="fas fa-store-slash aproposIcon"></i></h6>
+                        <h5 class="mt-3">À propos de la plateforme Stop-Retour</h5>
+                        <p class="mt-3">
+                         Une plate-forme électronique intégrée spécialisée dans le commerce électronique, fournissant une centrale des risques dont les e-commerçants et les entrepreneurs ont besoin, nécessaire pour avoir un taux très bas de retour marchandise et le développement de votre affaire. Stop-Retour est un service en ligne simple et facile à la disposition de tous pour gérer votre business en ligne de manière professionnelle.
+                        </p>
                     </div>
-                    <div class="col-md-6">
-                        <ul>
-                            <li class="pb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                            <li class="pb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                            <li class="pb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                            <li class="pb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                            <li class="pb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                            <li class="pb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                        </ul>
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <img src="{{ asset('images/a-1.png') }}" width="100%" />
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Packs -->
-        <div class="container mt-5 pt-5 text-center" id="service">
-            <h2 class="text-center headline">Packs</h2>
-            <div class="row pt-5">
-                <div class="col-md-3 mb-3">
-                    <div class="card" style="width: 100%;">
-                        <img src="{{ asset('images/nos_services/1.jpg') }}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <p class="card-text">Pack1</p>
-                        </div>
+        <!-- Notre Histoire -->
+        <div class="container mt-5 py-5" id="notreHistoire">
+            <h2 class="text-center mb-5 headline"> Notre histoire </h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div>
+                        <img src="{{ asset('images/a-2.png') }}" width="100%" />
                     </div>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <div class="card" style="width: 100%;">
-                        <img src="{{ asset('images/nos_services/1.jpg') }}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <p class="card-text">Pack1</p>
-                        </div>
+                <div class="col-md-6  d-flex align-items-center">
+                    <div class="text-sm-center text-md-left">
+                        <h6><i class="fas fa-landmark aproposIcon"></i></h6>
+                        <h5 class="mt-3">Notre histoire</h5>
+                        <p class="mt-3">
+                            Le grand développement dans le domaine du commerce électronique dans le monde, nous a inspiré pour créer une plate-forme intégrée pour prévenir d’éventuels risques du retour marchandise la source de perte la plus importante pour le e-commerçant, et pour pénétrer ce marché qui se développe de jour en jour, en profitant de la grande expérience que nos équipes ont accumulé dans la pratique du commerce électronique pendant de nombreuses années. En 2020, nous avons programmé la plateforme Stop-Retour et l'avons rendue accessible à tous, la plateforme prévoit un gain de plus de 50% sur le taux de retour habituel. Nous croyons que Stop-Retour fera la différence, profitera à tous pour décoller avec leur propres business et faire plus de profit.
+                        </p>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <div class="card" style="width: 100%;">
-                        <img src="{{ asset('images/nos_services/1.jpg') }}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <p class="card-text">Pack1</p>
-                        </div>
+            </div>
+        </div>
+
+        <!-- Notre Mession -->
+        <div class="container mt-5 py-5 text-center" id="notreMession">
+            <h2 class="text-center mb-5 headline"> Notre Mession </h2>
+            <div class="row">
+                <div class="col-md-6 d-flex align-items-center">
+                    <div class="text-sm-center text-md-left">
+                        <h6><i class="fas fa-bullseye aproposIcon"></i></h6>
+                        <h5 class="mt-3">Notre Mission</h5>
+                        <p class="mt-3">
+                            Notre mission est de rendre le commerce électronique facile et simple pour tous en minimisant les charges due au taux de retour marchandise élevé. Nous pensons que le commerce électronique est la solution pour offrir de nombreuses opportunités d'emploi et faire avancer la roue de l'économie. Par cela, nous avons l'intention de commencer aujourd'hui à faciliter le processus de de travail des e-commerçants en les aidants à minimiser la perte du profit, à réaliser des résultats impressionnants et de devenir un professionnel dans le monde du commerce électronique, ce qui offre de nombreuses opportunités qui changeront la vie de nombreux jeunes.
+                        </p>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <div class="card" style="width: 100%;">
-                        <img src="{{ asset('images/nos_services/1.jpg') }}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <p class="card-text">Pack1</p>
-                        </div>
+                <div class="col-md-6">
+                    <div>
+                        <img src="{{ asset('images/a-3.png') }}" width="100%" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notre communauté  -->
+        <div class="container mt-5 py-5 text-center" id="notreCommunaute">
+            <h2 class="text-center headline"> Notre communauté</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div>
+                        <img src="{{ asset('images/a-1.png') }}" width="100%" />
+                    </div>
+                </div>
+                <div class="col-md-6  d-flex align-items-center">
+                    <div class="text-sm-center text-md-left">
+                        <h6><i class="fas fa-people-arrows aproposIcon"></i></h6>
+                        <h5 class="mt-3">Prêt à rejoindre la communauté ?</h5>
+                        <p class="mt-3">
+                            Une plate-forme électronique intégrée spécialisée dans le commerce électronique, fournissant une centrale des risques dont les e-commerçants et les entrepreneurs ont besoin, nécessaire pour avoir un taux très bas de retour marchandise et le développement de votre affaire. Stop-Retour est un service en ligne simple et facile à la disposition de tous pour gérer votre business en ligne de manière professionnelle.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -183,7 +186,7 @@
         <div class="imgCoverly mt-5 py-5" id="contact">
             <div class="coverly  bg-shape"></div>
             <div class="container">
-                <h2 class="text-center mb-5 headline">Contact us</h2>
+                <h2 class="text-center mb-5 headline">Contacer nous</h2>
                 <div class="row">
                     <div class="col-md-7">
                         <form action="#" class="d-flex flex-column" style="height:100%">
@@ -247,7 +250,7 @@
             /* start use nice scroll */
             $("body").niceScroll({
                 cursoropacitymin:0.1,
-                cursorcolor:'#24C6DC',
+                cursorcolor:'#debe5b',
                 cursorwidth:'12px',
                 cursorborder:'none',
                 cursorborderradius:4,

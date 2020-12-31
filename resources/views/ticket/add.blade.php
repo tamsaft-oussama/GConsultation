@@ -34,7 +34,7 @@
             <!-- /. tools -->
           </div>
           <!-- /.card-header -->
-          <form action="{{route('ticket.store')}}" method="post">
+          <form action="{{route('ticket.contact.store')}}" method="post">
             @csrf
             <div class="card-body pad">
               <div class="mb-3">
@@ -42,27 +42,10 @@
                   <label for="exampleInputEmail1">Objet</label>
                   <input type="text" name="objet" class="form-control" maxlength="100" required>
                 </div>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <!-- select -->
-                    <div class="form-group">
-                      <label>Département</label>
-                      <select class="form-control" name="departement">
-                        <option value="Service Commercial" selected="selected">Service Commercial</option>
-                        <option value="Service Technique">Service Technique</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Priorité</label>
-                      <select class="form-control" name="priorite">
-                        <option value="Haute">Haute</option>
-                      <option value="Moyenne" selected="selected">Moyenne</option>
-                      <option value="Faible">Faible</option>
-                      </select>
-                    </div>
-                  </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Destinataire</label>
+                  <input type="text" value="{{$user->name}}" class="form-control" disabled>
+                  <input type="hidden" value="{{$user->id}}" name="user_id" class="form-control" >
                 </div>
                 <textarea name="message"></textarea>
               </div>

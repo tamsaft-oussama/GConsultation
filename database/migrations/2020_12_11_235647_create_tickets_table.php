@@ -20,6 +20,7 @@ class CreateTicketsTable extends Migration
             $table->string('departement', 100);
             $table->text('message');
             $table->boolean('etat')->default(0);
+            $table->boolean('lue')->default(0);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

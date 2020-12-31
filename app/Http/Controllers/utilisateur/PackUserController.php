@@ -11,7 +11,8 @@ use App\Models\Pack;
 class PackUserController extends Controller
 {
     public function index(){
-        return view('utilisateur.pack.index',['user' => Auth::user(),'packs' => Pack::cursor()]);
+        $pack=Pack::where('active',1)->orderBy('prix')->cursor();
+        return view('utilisateur.pack.index',['user' => Auth::user(),'packs' => $pack]);
     }
 
     public function show($id)

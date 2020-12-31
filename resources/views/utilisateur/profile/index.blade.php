@@ -16,11 +16,11 @@
                     <input type="email" class="form-control" id="email" value="{{ Auth::user()->email }}" name="email">
                 </div>
                 <div class="form-group">
-                    <label for="password">Old Password</label>
+                    <label for="password">Ancien mot de passe</label>
                     <input type="password" class="form-control" id="password" name="oldpassword">
                 </div>
                 <div class="form-group">
-                    <label for="password">New Password</label>
+                    <label for="password">Nouveau mot de passe</label>
                     <input type="password" class="form-control" id="password" name="password">
                 </div>
                 <div class="form-group">
@@ -34,7 +34,7 @@
                     <input type="text" class="form-control" id="ville" value="{{ Auth::user()->ville }}" name="ville">
                 </div>
                 <div class="form-group">
-                    <label for="adresse">adresse</label>
+                    <label for="adresse">Adresse</label>
                     <input type="text" class="form-control" id="adresse" value="{{ Auth::user()->adresse }}" name="adresse">
                 </div>
                 <div class="form-group text-center">
@@ -50,7 +50,7 @@
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-6">
-                        <button type="submit" class="btn btn-success btn-md btn-block"><i class="fas fa-save"></i> Enregistrer</button>
+                        <button type="submit" class="btn btn-gold btn-md btn-block"><i class="fas fa-save"></i> Enregistrer</button>
                     </div>
                     <div class="col-6">
                         <a href="{{ route('profile-user.destroy') }}" class="btn btn-danger btn-md btn-block"><i class="fas fa-trash"></i> Supprimer mon compte</a>

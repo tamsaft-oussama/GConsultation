@@ -1,6 +1,17 @@
 @extends('adminlte::page')
 
 @section('title', '| Page Ticket')
+@section('css')
+    <style>
+      textarea {
+          padding: 10px;
+          line-height: 1.5;
+          border-radius: 5px;
+          border: 3px solid #ccc;
+          box-shadow: 6px 2px 1px rgb(81 104 118);
+      }
+    </style>
+@endsection
 @section('content')
   <div class="col-md-12">
     <!-- Box Comment -->
@@ -88,8 +99,9 @@
               </div>
             @endif
         </div>
-        <div class="card-body">
-          <textarea name="message"></textarea>
+        <div class="card-body" style=" text-align: center; ">
+          <textarea id="message" name="message" rows="5" style="width: 95%;">
+          </textarea>
           <input type="hidden" name="ticket_id" value="{{$ticket->id}}">
           <input type="hidden" name="user_id" value="{{Auth::id()}}">
         </div>
@@ -112,9 +124,3 @@
 
 @stop
 
-@section('js')
-<script src="//cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
-<script>
-  CKEDITOR.replace( 'message' );
-</script>
-@stop

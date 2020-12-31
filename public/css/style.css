@@ -12,18 +12,18 @@
 /* Main style */
 .borderTop{
     border-top-width: 3px !important;
-    border-top-color: #38c172 !important;
+    border-top-color: #baa95a !important;
 }
 .borderLeft{
     border-left-width: 3px !important;
-    border-left-color: #38c172 !important;
+    border-left-color: #baa95a !important;
 }
 .borderLeft:nth-of-type(2n+0){
     margin-left: 10%;
 }
 .obFit{object-fit: cover!important;}
 .nav-link{color: whitesmoke;}
-.nav-link:hover{color: silver;}
+.nav-link:hover{color: #baa95a;}
 .capitalize{ text-transform: capitalize; }
 
 .pricing-table {
@@ -100,7 +100,7 @@
   margin: 0 30px;
   padding: 30px 0 45px 0;
   width: auto;
-  background: #38c172;
+  background: #baa95a;
 }
 
 .pricing-table .ptable-header::before,
@@ -142,7 +142,7 @@
   font-size: 14px;
   font-weight: 300;
   letter-spacing: 1px;
-  background: #38c172;
+  background: #baa95a;
 }
 
 .pricing-table .ptable-status span::before,
@@ -197,7 +197,7 @@
 }
 
 .pricing-table .ptable-description ul li {
-  color: #38c172;
+  color: #baa95a;
   font-size: 14px;
   font-weight: 300;
   letter-spacing: 1px;
@@ -219,19 +219,32 @@
   letter-spacing: 2px;
   text-decoration: none;
 }
-
+.img-ticket{
+  width: 70px;
+  height: 70px;
+  border-radius: 10px; 
+  object-fit:cover !important
+}
 /* .pricing-table .ptable-action a:hover {
   color: #38c172;
   background: #FF6F61;
 } */
-
+.btn-gold{
+  color: #d3d0c5;
+  background: #292826;
+}.btn-gold:hover{
+  color: #baa95a;
+}
+.text-gold{
+  color: #baa95a;
+}
 .pricing-table .ptable-item.featured-item .ptable-action a {
-  color: #38c172;
+  color: #baa95a;
   background: #FF6F61;
 }
 
 .pricing-table .ptable-item.featured-item .ptable-action a:hover {
   color: #FF6F61;
-  background: #38c172;
+  background: #baa95a;
 }
 

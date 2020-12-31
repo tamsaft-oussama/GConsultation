@@ -62,7 +62,9 @@
                           <span class="badge badge-primary">{{$ticket->priorite}}</span> 
                         @elseif($ticket->priorite=='Haute')
                           <span class="badge badge-danger">{{$ticket->priorite}}</span> 
-                        @else 
+                        @elseif($ticket->priorite=='Unique')
+                          <span class="badge badge-secondary">{{$ticket->priorite}}</span>
+                        @else
                           <span class="badge badge-warning">{{$ticket->priorite}}</span> 
                         @endif
                   </td>
@@ -94,7 +96,18 @@
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
   <script>
     $(document).ready( function () {
-      $('#table_id').DataTable();
+      $('#table_id').DataTable({
+        "order": [[ 3, "desc" ]],
+        "language": {
+          "zeroRecords": "Rien trouvé - désolé",
+          "info": "Affichage de la page _PAGE_ sur _PAGES_",
+          "infoEmpty": "Aucun enregistrement disponible",
+          "paginate": {
+            "next":       "Suivant",
+            "previous":   "Retour"
+          },
+        }
+      });
     } );
   </script>
 @stop

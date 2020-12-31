@@ -35,16 +35,16 @@
 
         <div class="text-center p-t-12">
             <span class="txt1">
-                Forgot
+                Mot de passe
             </span>
             <a class="txt2" href="#">
-                Username / Password?
+                oublié?
             </a>
         </div>
 
         <div class="text-center p-t-136">
             <a class="txt2" href="{{ route('register') }}">
-                Create your Account
+                Créez votre compte
                 <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
             </a>
         </div>

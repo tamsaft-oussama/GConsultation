@@ -6,7 +6,7 @@
     <div class="col-md-6 col-lg-3 mb-3">
         <div class="card borderTop" style="width:100%;">
             <div class="card-body text-center">
-                <i class="fas fa-search fa-2x text-success mb-2"></i>
+                <i class="fas fa-search fa-2x text-gold mb-2"></i>
                 <p>{{ count($historiques) }}</p>
                 <h6>Vos recherches</h6>
             </div>
@@ -16,9 +16,9 @@
     <div class="col-md-6 col-lg-3 mb-3">
         <div class="card borderTop" style="width:100%;">
             <div class="card-body text-center">
-                <i class="fas fa-exclamation fa-2x text-success mb-2"></i>
+                <i class="fas fa-exclamation fa-2x text-gold mb-2"></i>
                 <p>{{ $reclamations }}</p>
-               <h6>Vos réclamations</h6>
+               <h6>Vos déclarations</h6>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
     <div class="col-md-6 col-lg-3 mb-3">
         <div class="card borderTop" style="width:100%;">
             <div class="card-body text-center">
-                <i class="fas fa-search-dollar fa-2x text-success mb-2"></i>
+                <i class="fas fa-search-dollar fa-2x text-gold mb-2"></i>
                 <p>{{ $user->count }}</p>
                 <h6>Votre solde</h6>
             </div>
@@ -36,7 +36,7 @@
     <div class="col-md-6 col-lg-3 mb-3">
         <div class="card borderTop" style="width:100%;">
             <div class="card-body text-center">
-                <i class="fas fa-users fa-2x text-success mb-2"></i>
+                <i class="fas fa-users fa-2x text-gold mb-2"></i>
                 <p>0</p>
                 <h6>Vos clients</h6>
             </div>
@@ -65,7 +65,7 @@
                         </tr>
                         @empty
                         <tr>
-                        <td colspan="3"><div class="alert alert-info">Vous n'avez pas fait aucun recherche </div></td>
+                        <td colspan="3"><div class="alert alert-info">Aucun résultat trouvé </div></td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -78,13 +78,6 @@
 @endsection
 
 @section('js')
-    <script>
-        $('#table_id').dataTable( {
-            "pageLength": 5,
-            "lengthMenu": [ 5,10, 25, 50, 75, 100 ]
-        } );
-
-
-    </script>
+    
 @endsection
 

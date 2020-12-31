@@ -1,118 +1,134 @@
 @extends('adminlte::page')
 
-@section('title', '| Page Réclamation')
+@section('title', '| Page Client')
 
 @section('content_header')
-    <h3 class="text-center pt-3">Ajouter votre réclamation à ce client</h3>
+    <h3 class="pt-3" style="float: right; width: 50%;">Gérer les declarations</h3>
+    <div class="col-12 col-sm-6 col-md-3">
+      <div class="info-box mb-3">
+        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Declarations</span>
+          <span class="info-box-number">{{$reclamations->count()}}</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
 @stop
 
 @section('content')
-
- <div class="container-fluid mt-3">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card card-danger card-outline">
-            <div class="card-header"><h5 class="card-title">Client information</h5></div>
-              <div class="card-body">
-                <p class="card-text">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-dark"><i class="far fa-copy"></i></span>
-          
-                        <div class="info-box-content">
-                          <h6>{{ $client->nom ?? 'inconnu' }}</h6>
-                          <h6>{{ $client->ville ?? 'inconnu'}}</h6>
-                          <h6>{{ $client->email ?? 'inconnu' }}</h6>
-                          <h6 class="info-box-number">{{ $client->numTel ?? 'inconnu' }}</h6>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                </p>
-                <a href="#" class="card-link btn btn-dark btn-xs float-left" data-toggle="modal" data-target="#addClienInfo">Ajouter autre information</a>
-                <!-- Modal -->
-                <div class="modal fade" id="addClienInfo" tabindex="-1" aria-labelledby="addClienInfo" aria-hidden="true">
-                    <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ajouter un client</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="modal-body">
-                            <form method="POST" action="{{ route('reclamation.store') }}">
-                                @csrf
-                                  <div class="form-group">
-                                    <input type="text" class="form-control" id="nom" name="nom" placeholder="nom">
-                                    <input type="hidden" class="form-control" id="id" name="id" value="{{ $client->id }}">
-                                    @if ($errors->has('nom'))
-                                    <span class="text-danger">{{ $errors->first('nom') }}</span>
-                                    @endif
-                                  </div>
-                                  <div class="form-group">
-                                      <input type="email" class="form-control" id="email" name="email" placeholder="email">
-                                      @if ($errors->has('email'))
-                                      <span class="text-danger">{{ $errors->first('email') }}</span>
-                                      @endif
-                                  </div>
-                                <div class="float-left">
-                                    <button type="submit" class="btn btn-dark btn-xs">Enregistrer  <i class="fas fa-save"></i></button>
-                                </div>
-                                <div class="float-right">
-                                    <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Fermer  <i class="fas fa-times"></i></button>
-                                </div>
-                              </form>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                
-                <a href="#" class="card-link btn btn-danger btn-xs float-right" data-toggle="modal" data-target="#addReclamation">Ajouter une réclamation</a>
-                <div class="modal fade" id="addReclamation" tabindex="-1" aria-labelledby="addReclamation" aria-hidden="true">
-                    <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ajouter une Réclamation</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="modal-body">
-                            <form method="POST" action="{{ route('addReclamation',['reclamation'=>$client->id]) }}">
-                                @csrf
-                                @method('POST')
-                                <div class="form-group">
-                                    @if ($errors->has('commentaire'))
-                                    <span class="text-danger">{{ $errors->first('commentaire') }}</span>
-                                    @endif
-                                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="commentaire"></textarea>
-                                  <input type="hidden" name="client" value="{{ $client->id }}">
-                                  <input type="hidden" name="user" value="{{ $client->user_id }}">
-                                </div>
-                                <div class="float-left">
-                                    <button type="submit" class="btn btn-dark btn-xs">Enregistrer  <i class="fas fa-save"></i></button>
-                                </div>
-                                <div class="float-right">
-                                    <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Fermer  <i class="fas fa-times"></i></button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-
-              </div>
-            </div><!-- /.card -->
+  <div class="row">
+    @if(Session::has('success'))
+        <div class="alert alert-success" role="alert" style="margin: 1%; width:100%">
+          {{Session::get('success')}}
         </div>
+      @endif
+      @if(Session::has('danger'))
+        <div class="alert alert-danger" role="alert" style="margin: 1%; width:100%">
+          {{Session::get('danger')}}
+        </div>
+      @endif
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Liste  Declarations</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0">
+          <table id="table_id" class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Utilisateur</th>
+                <th>Client</th>
+                <th>Declaration</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($reclamations as $reclamation)
+                <tr>
+                  <td>{{$reclamation->id}}</td>
+                  <td><a  href="{{route('user.show',['user' => $reclamation->user])}}">{{$reclamation->user->name}}</a></td>
+                  <td><a  href="{{route('client.show',['client' => $reclamation->client])}}">{{$reclamation->client->numTel}}</a></td>
+                  <td>{{$reclamation->commentaire}}</td>
+                  <td>                    
+                    <a class="btn btn-dark btn-sm" href="{{route('reclamation.edit',['reclamation' => $reclamation])}}" role="button"><i class="fas fa-eye"></i> Afficher</a>
+                  </td>
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
     </div>
- </div>
-
+  </div>
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+  <style>
+    .p-0 {
+    padding: 3% !important;
+    }
+    .buttons-excel{
+      background-color: #343a40; /* Green */
+      border: none;
+      color: #fff;
+      width: 9%;
+      padding: 4px;
+      float: left;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 12px;
+    }
+    .checked {
+      color: orange !important;
+    }
+    .stars span{
+      color:gray;
+    }
+    </style>
 @stop
 
 @section('js')
-    <script>
-    </script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
+  <script>
+    //
+    $(document).ready(function() {
+    $('#table_id').DataTable( {
+        dom: 'Bfrtip',
+        select: true,
+        stateSave: true,
+        buttons: [
+            'excelHtml5'
+        ],
+        "language": {
+          "zeroRecords": "Rien trouvé - désolé",
+          "info": "Affichage de la page _PAGE_ sur _PAGES_",
+          "infoEmpty": "Aucun enregistrement disponible",
+          "paginate": {
+            "next":       "Suivant",
+            "previous":   "Retour"
+          },
+        }
+    } );
+} );
+  </script>
 @stop

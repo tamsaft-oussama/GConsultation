@@ -31,7 +31,7 @@
                             </ul>
                             </div>
                             <div class="col-5 text-center">
-                            <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" class="img-circle img-fluid" style="width:60px;height:60px!important">
+                            <img src="{{ $user->profile_photo_path }}" alt="{{ $user->name }}" class="img-circle img-fluid" style="width: 90px;height: 90px!important;object-fit: cover;">
                             </div>
                         </div>
                         </div>
@@ -40,18 +40,13 @@
                             <form action="{{ route('user.destroy',['user'=>$user->id]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button  href="/" class="btn btn-danger"><i class="fas fa-trash fa-sm"></i></button>
+                                <button  class="btn btn-sm btn-danger"><i class="fas fa-trash fa-sm"></i></button>
                             </form>
                         </div>
-                        @if($user->role == 0)
                         <div class="float-right mr-3">
-                            <form action="{{ route('user.make.admin') }}" method="post">
-                                @csrf
-                                <input type="hidden" name="id" value="{{ $user->id }}">
-                                <button  type="submit" class="btn btn-dark">Faire un administrateur</button>
-                            </form>
+                            <a href="{{ route('ticket.contact',['user' => $user])}}" class="btn btn-sm bg-teal"><i class="fas fa-comments"></i></a>
+                            <a  href="{{route('user.show',['user' => $user])}}" type="submit" class="btn btn-sm btn-primary">Profils</a>
                         </div>
-                        @endif
                         </div>
                     </div>
                 </div>
@@ -82,10 +77,3 @@
 
 @stop
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
-
-@section('js')
-    <script> console.log('Hi!'); </script>
-@stop

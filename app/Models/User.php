@@ -35,6 +35,7 @@ class User extends Authenticatable
         'tel',
         'ville',
         'adresse',
+        'count',
         'nom',
         'prenom',
     ];
@@ -66,12 +67,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends = [
-        'profile_photo_url',
+        'profile_photo_path',
     ];
 
     public function adminlte_image()
     {
-        return $this->profile_photo_url;
+        return $this->profile_photo_path;
     }
 
     public function adminlte_desc()
@@ -105,7 +106,7 @@ class User extends Authenticatable
     }
 
     public static function getUserTickets($user){
-        return Ticket::orderBy('created_at','desc')->where('user_id',$user->id)->limit(1)->get();
+        return Ticket::orderBy('created_at','desc')->where('user_id',$user->id)->limit(4)->get();
     }
 
 }

@@ -17,7 +17,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return view('client.index',['user'=>Auth::user()]);
+        return view('client.index',['clients'=>Client::cursor()]);
     }
 
     /**

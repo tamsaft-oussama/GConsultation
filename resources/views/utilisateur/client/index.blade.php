@@ -1,5 +1,13 @@
 @extends('layouts.app-user')
-
+@section('css')
+ <style>
+   .a-user:hover {
+    color: #baa95a;
+    text-decoration: none;
+    cursor: pointer;
+  }
+ </style>
+@endsection
 @section('content')
 
   <div class="card borderTop  mb-3" style="max-width:100%">
@@ -10,7 +18,7 @@
                   <div class="input-group">
                       <input name="search" type="tel" class="form-control form-control-sm" placeholder="Chercher un client par téléphone" pattern="[0-9]{10}"  required>
                       <div class="input-group-append">
-                          <button id="search" class="btn btn-sm btn-dark">
+                          <button id="search" class="btn btn-sm btn-gold">
                               <i class="fa fa-search"></i>
                           </button>
                       </div>
@@ -18,7 +26,7 @@
             </form>
         </div>
         <div class="col-4">
-            <button class="btn btn-dark btn-sm float-right">Solde : {{ $user->count }} Point</button>
+            <button class="btn btn-gold btn-sm float-right">Solde : {{ $user->count }} Point</button>
         </div>
       </div>
     </div>
@@ -47,29 +55,30 @@
       <div class="row">
         <div class="col">
           @isset($client)
-            @if($client->reclamations_count < 2)
+
+          @if($client->reclamations_count < 2)
             <i class="fas fa-smile text-success"></i>
             @elseif($client->reclamations_count >= 2 && $client->reclamations_count < 3)
             <i class="fas fa-meh text-warning"></i>
             @elseif($client->reclamations_count > 2)
             <i class="fas fa-frown text-danger"></i>
             @endif
-            <span class="info-box-text">Crédibilité : {{ $client->reclamations_count }} Réclamation(s)</span>
+            <span class="info-box-text">Crédibilité : {{ $client->reclamations_count }} Déclaration(s)</span>
           @endisset
           @empty($client)
-            <i class="fas fa-exclamation"></i> Réclamation
+            <i class="fas fa-exclamation"></i> Déclaration
           @endempty
         </div><!--end col-->
         <div class="col">
           {{-- if this user don't have reclamation for this client show this button --}}
           @isset($can)
             @if ($can)
-            <a class="btn btn-success btn-sm float-right text-light" data-toggle="modal" data-target="#addReclamation">Ajouter Votre Réclamation <i class="fas fa-exclamation text-danger"></i></a>
+            <a class="btn btn-success btn-sm float-right text-light" data-toggle="modal" data-target="#addReclamation">Ajouter Votre Déclaration <i class="fas fa-exclamation text-danger"></i></a>
             <div class="modal fade" id="addReclamation" tabindex="-1" aria-labelledby="addReclamation" aria-hidden="true">
               <div class="modal-dialog">
               <div class="modal-content">
                   <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Ajouter une Réclamation</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Ajouter une Déclaration</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                   </button>
@@ -82,7 +91,7 @@
                               @if ($errors->has('commentaire'))
                               <span class="text-danger">{{ $errors->first('commentaire') }}</span>
                               @endif
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="commentaire" placeholder="Posé votre réclamation"></textarea>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="commentaire" placeholder="Posé votre déclaration"></textarea>
                             <input type="hidden" name="client" value="{{ $client->id }}">
                             <input type="hidden" name="user" value="{{ $user->id }}">
                           </div>
@@ -102,26 +111,49 @@
         </div><!--end col-->
       </div><!--end row-->
     </div><!--end header-->
-    <div class="card-body text-secondary">
+    <div class="container m-2 mb-4" style="display: flex;">
       {{-- Show reclamation --}}
       @isset($client)
-      @forelse ($client->reclamations as $r)
-      <div class="card mt-2">
-          <div class="card-header bg-dark text-light">
-            <span>Réclamé par <strong class="text-success"> {{ $r->user->name }} </strong> </span>
-            <span> à {{ $r->created_at->diffForHumans()}}</span>
-          </div>
-          <div class="card-body row">
-              <div class="col-1 d-flex align-items-center justify-content-center">
-              <img src="{{ $r->user->profile_photo_path }}" alt="{{ $r->user->name }}"  width="40px" height="40px" class="rounded-circle obFit"/>
+        <div class="row">
+            @forelse ($client->reclamations as $r)
+            @if($r->user->id == Auth::id())
+            <div class="col-md-11">
+              <div class="card mt-2 pl-3 pr-3">
+                <div class="card-header" style="background-color: white;padding: 6px 3px;">
+                  <span><a class="a-user"><b style="margin-right: 5px;"> {{ $r->user->name }} </b></a> </span>
+                  <small> {{ $r->created_at->diffForHumans()}}</small>
+                </div>
+                <div class="card-body row" style="padding: 8px 2px;min-height: 65px;">
+                    <div class="col-11">
+                      {{ $r->commentaire }}
+                    </div>
+                </div>
               </div>
-              <div class="col-11 card-header bg-white">
-                {{ $r->commentaire }}
+            </div>
+            <div class="col-md-1 text-center pt-3 pl-1">
+              <img src="{{ $r->user->profile_photo_path }}" alt="{{ $r->user->name }}"  width="60px" height="60px" class="rounded-circle obFit"/>
+            </div>
+            @else
+            <div class="col-md-1 text-center pt-3 pl-1">
+              <img src="{{ $r->user->profile_photo_path }}" alt="{{ $r->user->name }}"  width="60px" height="60px" class="rounded-circle obFit"/>
+            </div>
+            <div class="col-md-11">
+              <div class="card mt-2 pl-3 pr-3">
+                <div class="card-header" style="background-color: white;padding: 6px 3px;">
+                  <span><a class="a-user"><b style="margin-right: 5px;"> {{ $r->user->name }} </b></a> </span>
+                  <small> {{ $r->created_at->diffForHumans()}}</small>
+                </div>
+                <div class="card-body row" style="padding: 8px 2px;min-height: 65px;">
+                    <div class="col-11">
+                      {{ $r->commentaire }}
+                    </div>
+                </div>
               </div>
-          </div>
-      </div>
-      @empty
-      <p>Il n'y a pas de réclamation à ce client</p>
+            </div>
+            @endif
+        @empty
+        </div>
+      <p>Il n'y a pas de déclaration à ce client</p>
       @endforelse
       @endisset
       @empty($client)

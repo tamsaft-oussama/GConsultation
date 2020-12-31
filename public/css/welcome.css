@@ -4,7 +4,7 @@
 .welcome,
 .carousel,
 .carousel-caption h5,.carousel-caption p{
-    font-family: 'Tajawal', sans-serif  !important;
+    font-family: 'Montserrat', sans-serif  !important;
 }
 .bg-shape{
     background-image: url('/images/bg.png');
@@ -13,8 +13,9 @@
     height: 100%;
 }
 .navbar-nav .nav-link{
-    font-family: 'Tajawal', sans-serif !important;
+    font-family: 'Montserrat', sans-serif !important;
     font-weight: normal !important;
+    font-size: 12px !important;
 }
 
 /* The outermost element*/
@@ -74,7 +75,7 @@
 	margin: auto;
 	font-size: 18px;
 	line-height: 1.9;
-	font-family: poppins;
+	font-family: Montserrat;
 }
 .carousel-caption a {
 	text-transform: uppercase;
@@ -88,10 +89,10 @@
     -webkit-transition: all 0.4s ease-in-out;
 }
 .carousel-caption a:hover{
-    background: #5242c5;
+    background: black;
 }
 .navbar-nav a {
-	font-family: poppins;
+	font-family: Montserrat;
 	font-size: 18px;
 	text-transform: uppercase;
 	font-weight: bold;
@@ -179,12 +180,12 @@
     font-weight:700;
     position:relative;
     margin:30px auto;
-    text-transform:uppercase;
+    text-transform:capitalize;
     width:300px;
   }
 
   .headline:before, .headline:after {
-    background:#24C6DC;
+    background:#debe5b;
     content:"";
     display:block;
     height:30px;
@@ -236,9 +237,9 @@
     color: white;
   }
   .main-bg-color{
-    background: #24C6DC!important;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #514A9D, #24C6DC)!important;  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #514A9D, #24C6DC)!important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #debe5b!important;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, black, #debe5b)!important;  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, black, #debe5b)!important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
     -webkit-transition: all 0.5s ease-in-out;
@@ -246,16 +247,16 @@
     border: none;
   }
   .main-bg-color:hover{
-    background: #24C6DC  !important;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #514A9D, #24C6DC) !important;  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #514A9D, #24C6DC) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #debe5b  !important;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, black, #debe5b) !important;  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, black, #debe5b) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
   .main-color{
-      color: #24C6DC!important;
+      color: #debe5b!important;
   }
 
   .to-top {
-    background: #24C6DC;
+    background: #debe5b;
     position: fixed;
     z-index: 9999;
     bottom: 16px;
@@ -280,6 +281,10 @@
     opacity:1;
   }
 
+  .to-top.active :hover{
+    color: black !important;
+  }
+
   footer{
       padding: 10px;
       background-color: black;
@@ -290,7 +295,7 @@
   .fa-facebook-square,
   .fa-twitter-square,
   .fa-instagram-square{
-    color:  #24C6DC;
+    color:  #debe5b;
     font-size: 30px;
     transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
@@ -310,3 +315,35 @@
       border-bottom: 1px solid white;
       background-color: black !important;
   }
+
+  .aproposIcon{
+    width: 100px !important;
+    color: white;
+    height: 100px;
+    background-color: #debe5b;
+    border-radius: 50%;
+    padding: 20px;
+    transition:  all 0.4s ease-in-out;
+  }
+  .aproposIcon:hover{
+    background-color: white;
+    border:1px solid #debe5b;
+    color:#debe5b;
+  }
+  #contact .form-control,
+  #contact .form-control:hover,
+  #contact .form-control:focus
+  {
+      background-color: transparent !important;
+      border: 1px solid #bca14d !important;
+      color: #dabb59 !important;
+      border-color: #daba59 !important;
+  }
+  #contact .form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(220 ,189 ,91 ,0.25) !important;
+  }
+  #contact .list-group-item {
+    color: #ababab;
+    background-color: transparent;
+    border: 1px solid rgb(203 174 83);
+}

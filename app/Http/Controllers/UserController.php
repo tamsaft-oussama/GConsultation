@@ -42,10 +42,14 @@ class UserController extends Controller
         return view('user.show', ['user' => $user]);
     }
 
-    const apikey = 'c6dc698142de14afb85dac3c1f6896b5-a80791d9-d521-40f9-af30-c20d218b61f8';
+    const apikey = '4a4be3f19509458838e78c93c85e9156-6ea91fe0-53dc-4302-abce-d392543e18bf';
 
     public function sendSMS(Request $request){
         $validate = $request->input('code');
+        if(strlen ( $request->input('phone') )==10){
+            $phone="212".substr($request->input('phone'), 1, 9);
+        }
+        return $validate . " " . $phone;
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'https://9rknjy.api.infobip.com/sms/2/text/advanced',
@@ -56,7 +60,7 @@ class UserController extends Controller
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS =>'{"messages":[{"from":"InfoSMS","destinations":[{"to":"'. '212708023738' .'"}],"text":"Your code is :'.$validate.'"}]}',
+            CURLOPT_POSTFIELDS =>'{"messages":[{"from":"InfoSMS","destinations":[{"to":"'. $phone .'"}],"text":"Your code is :'.$validate.'"}]}',
             CURLOPT_HTTPHEADER => array(
                 'Authorization: App '.self::apikey,
                 'Content-Type: application/json',

@@ -18,18 +18,8 @@ class ReclamationController extends Controller
      */
     public function index()
     {        
-        if(isset($_GET['client'])){
-            $client = Client::with('reclamations')->findOrFail($_GET['client']);
-            if(Auth::user()->id ==  $client->user_id){
-                foreach ($client->reclamations as $reclamation) {
-                    if($reclamation->user_id == $client->user_id){
-                        return redirect()->route('dashboard');
-                    }
-                }
-                return view('reclamation.index',['client'=>$client]);
-            }
-        }
-        return redirect()->route('dashboard');
+        return view('reclamation.index', ['reclamations' => Reclamation::cursor()]);
+
     }
 
     /**
@@ -77,6 +67,24 @@ class ReclamationController extends Controller
         $client->email      = $request->input('email');
         $client->save();
         return redirect()->back();
+    }
+    public function edit(Reclamation $reclamation)
+    {
+        return view('reclamation.edit', ['reclamation' => $reclamation]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Pack  $pack
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Reclamation $reclamation)
+    {
+        $reclamation->commentaire = $request->commentaire;
+        $reclamation->save();
+        return back()->with('success', 'Reponse a été ajouté!');
     }
 
 }

@@ -44,16 +44,18 @@ class TicketController extends Controller
     public function store(Request $request)
     {
 
+    }
+    public function store2(Request $request)
+    {
+
         $request->validate([
             'objet'=>"bail|required|max:100|min:10",
             'message'=>"required"
         ]);
         $ticket = new Ticket();
         $ticket->objet = $request->objet;
-        $ticket->departement = $request->departement;
-        $ticket->priorite = $request->priorite;
         $ticket->message = $request->message;
-        $ticket->user_id = Auth::id();
+        $ticket->user_id = $request->user_id;
         $ticket->save();
         return back()->with('success', 'Reponse a été ajouté!');
     }
@@ -80,6 +82,10 @@ class TicketController extends Controller
     public function edit(Ticket $ticket)
     {
         
+    }
+    public function contact(User $user )
+    {
+        return view('ticket.add', ['user' => $user]);
     }
 
     /**

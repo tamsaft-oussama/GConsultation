@@ -9,10 +9,23 @@
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+<style>
+  @media screen and (max-width: 575px) {
+    .capitalize {
+      display: none;
+    }
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+</style>
+  @yield('css')
+
 </head>
 <body>
 
-  <nav class="navbar navbar-expand-lg bg-success">
+  <nav class="navbar navbar-expand-lg bg-dark">
     <div class="container">
       <a class="navbar-brand text-white" href="#">Logo</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,16 +34,16 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('utilisateur-pack.index') }}">Pack</a>
+            <a class="nav-link" href="{{ route('utilisateur.index') }}">Espace Client</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('client-user.index') }}">Client</a>
+            <a class="nav-link" href="{{ route('client-user.index') }}">Consultation</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('utilisateur-pack.index') }}">Services</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('ticket-user.index') }}">Ouvrir un ticket</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('utilisateur.index') }}">Espace Client</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -40,8 +53,8 @@
               {{ Auth::user()->name }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="{{ route('profile-user.index') }}"><i class="fas fa-user text-success"></i> Profile</a>
-              <a class="dropdown-item" href="{{ route('historique-user.userIndex') }}"><i class="fas fa-history text-success"></i> Historique</a>
+              <a class="dropdown-item" href="{{ route('profile-user.index') }}"><i class="fas fa-user text-gold"></i> Profile</a>
+              <a class="dropdown-item" href="{{ route('historique-user.userIndex') }}"><i class="fas fa-history text-gold"></i> Historique</a>
               <a class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="cursor:pointer">
                 <i class="fa fa-fw fa-power-off text-danger"></i>
                 Déconnecter
@@ -69,7 +82,7 @@
           </div>
         </div>
         <div class="card borderTop mb-3" style="max-width:100%">
-          <div class="card-header"><i class="fas fa-scroll"></i> Vos Tickets</div>
+          <div class="card-header"><a href="{{ route('ticket.all') }}"><i class="fas fa-scroll"></i> Vos dernières demandes </a></div>
           <div class="card-body text-secondary px-0 py-0">
             <ul class="list-group">
               @forelse(Auth::user()::getUserTickets(Auth::user()) as $ticket)
@@ -80,10 +93,13 @@
                 @else
                 <span class="badge badge-success badge-pill">Ouvert</span>
                 @endif
+                @if(!$ticket->lue) 
+                  <span class="badge badge-danger">Support</span>
+                @endif
               </li>
               @empty
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                Il n'ya pad de ticket
+                Aucun résultat trouvé
                 <span class="badge badge-success badge-pill">0</span>
               </li>
               @endforelse
@@ -106,23 +122,29 @@
                         @if ($errors->has('numTel'))
                         <span class="text-danger">{{ $errors->first('numTel') }}</span>
                         @endif
-                      <input type="text" class="form-control" id="tel" name="numTel" placeholder="Numéro de téléphone">
+                      <input type="text" class="form-control" style=" height: calc(14px + 0.75rem + 2px); " id="tel" name="numTel" placeholder="Numéro de téléphone">
                       <input type="hidden" name="user_id" value="{{ $user->id }}">
                     </div>
                     <div class="form-group">
-                        @if ($errors->has('numTel'))
-                        <span class="text-danger">{{ $errors->first('ville') }}</span>
+                        <input type="text" class="form-control" style=" height: calc(14px + 0.75rem + 2px); " id="nom" name="nom" placeholder="Nom">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" style=" height: calc(14px + 0.75rem + 2px); " id="ville" name="ville" placeholder="Ville">
+                    </div>
+                    <div class="form-group">
+                      @if ($errors->has('email'))
+                        <span class="text-danger">{{ $errors->first('email') }}</span>
                         @endif
-                        <input type="text" class="form-control" id="ville" name="ville" placeholder="Ville">
+                      <input type="text" class="form-control" style=" height: calc(14px + 0.75rem + 2px); " id="email" name="email" placeholder="Email">
                     </div>
                     <div class="form-group">
                       @if ($errors->has('commentaire'))
                           <span class="text-danger">{{ $errors->first('commentaire') }}</span>
                       @endif
-                      <textarea class="form-control" rows="3" name="commentaire" placeholder="Posé votre réclamation"></textarea>
+                      <textarea class="form-control" style=" height: 50px; " rows="3" name="commentaire" placeholder="Posé votre déclaration"></textarea>
                       <input type="hidden" name="user" value="{{ $user->id }}">
                     </div>
-                      <button type="submit" class="btn btn-success btn-block btn-sm"><i class="fas fa-save"></i> Enregistrer </button>
+                      <button type="submit" class="btn btn-gold btn-block btn-sm"><i class="fas fa-save"></i> Enregistrer </button>
                 </form>
               </div>
           </div>
@@ -139,7 +161,19 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 <script>
   $(document).ready( function () {
-    $('#table_id').DataTable();
+    $('#table_id').DataTable({
+      "pageLength": 5,
+      "lengthMenu": [ 5,10, 25, 50, 75, 100 ],
+      "language": {
+          "zeroRecords": "Aucun résultat trouvé",
+          "info": "Affichage de la page _PAGE_ sur _PAGES_",
+          "infoEmpty": "Aucun enregistrement disponible",
+          "paginate": {
+            "next":       "Suivant",
+            "previous":   "Retour"
+          },
+        }
+    });
   });
 </script>
 @yield('js')

@@ -3,113 +3,143 @@
 @section('title', '| Page Client')
 
 @section('content_header')
-    <h3 class="text-center pt-3">Gérer les clients</h3>
+    <h3 class="pt-3" style="float: right; width: 50%;">Gérer les clients</h3>
+    <div class="col-12 col-sm-6 col-md-3">
+      <div class="info-box mb-3">
+        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Clients</span>
+          <span class="info-box-number">{{$clients->count()}}</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
 @stop
 
 @section('content')
-
- <div class="container-fluid mt-3">
-    <div class="row">
-        <div class="col-md-4">
-          <div class="info-box">
-  
-            <div class="info-box-content">
-              <form  method="post" action="{{ route('client.search') }}">
-                @csrf
-                  <div class="input-group">
-                      <input name="search" type="tel" pattern="[0-9]{10}" class="form-control form-control-md" placeholder="Ex:0610101111" required>
-                      <div class="input-group-append">
-                          <button id="search" class="btn btn-sm btn-danger">
-                              <i class="fa fa-search"></i>
-                          </button>
-                      </div>
-                  </div>
-              </form>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
+  <div class="row">
+    @if(Session::has('success'))
+        <div class="alert alert-success" role="alert" style="margin: 1%; width:100%">
+          {{Session::get('success')}}
         </div>
-
-        <div class="col-md-4">
-          <div class="info-box">
-            <div class="info-box-content">
-              <a type="button" class="btn btn-md btn-dark btn-block text-light" title="Chaque recherche que vous effectuez soustrait un point à votre solde">
-                Solde : <i class="fas fa-search-dollar"></i> <span class="font-weight-bold">{{  $user->count }}</span> 
-              </a>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
+      @endif
+      @if(Session::has('danger'))
+        <div class="alert alert-danger" role="alert" style="margin: 1%; width:100%">
+          {{Session::get('danger')}}
         </div>
-
-        <div class="col-md-4">
-          <div class="info-box">  
-            <div class="info-box-content">
-              <a class="card-link btn btn-md btn-danger btn-block mr-3 text-light" data-toggle="modal" data-target="#addClienInfo"><i class="fas fa-user-plus"></i> Ajouter un client</a>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
+      @endif
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Liste  Clients</h3>
         </div>
-
-        <div class="col-12">
-          @if($message ?? false)
-          <div class="alert alert-warning alert-dismissible text-center fade show" role="alert">
-            {{  $message ?? ''}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          @endif
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0">
+          <table id="table_id" class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Telephone</th>
+                <th>Ville</th>
+                <th>Email</th>
+                <th>Notation</th>
+                <th>Reclamation</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($clients as $client)
+                <tr>
+                  <td>{{$client->id}}</td>
+                  <td>{{$client->nom}} @if($client->nom) {{$client->nom}} @else Vide @endif</td>
+                  <td>{{$client->numTel}}</td>
+                  <td>{{$client->ville}} @if($client->ville) {{$client->ville}} @else Vide @endif</td>
+                  <td>{{$client->email}} @if($client->email) {{$client->email}} @else Vide @endif</td>
+                  <td class="stars">
+                    <span class="fa fa-star @if($client->reclamations->count()<5) checked @endif"></span>
+                    <span class="fa fa-star @if($client->reclamations->count()<4) checked @endif"></span>
+                    <span class="fa fa-star @if($client->reclamations->count()<3) checked @endif"></span>
+                    <span class="fa fa-star @if($client->reclamations->count()<2) checked @endif" ></span>
+                    <span class="fa fa-star @if($client->reclamations->count()<1) checked @endif"></span>
+                    <span> ({{$client->reclamations->count()}})</span>
+                  </td>
+                  <td>                    
+                    <a class="btn btn-dark btn-sm" href="{{route('client.show',['client' => $client])}}" role="button"><i class="fas fa-eye"></i> Afficher</a>
+                  </td>
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
         </div>
-        <!-- /.card -->
-        <!-- Modal -->
-        <div class="modal fade" id="addClienInfo" tabindex="-1" aria-labelledby="addClienInfo" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ajouter un client</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                  <form method="POST" action="{{ route('client.store') }}">
-                    @csrf
-                    @method('POST')
-                      <div class="form-group">
-                        <input type="text" class="form-control" id="tel" name="numTel" placeholder="Numéro de téléphone">
-                        <input type="hidden" name="user_id" value="{{ $user->id }}">
-                        @if ($errors->has('numTel'))
-                        <span class="text-danger">{{ $errors->first('numTel') }}</span>
-                        @endif
-                      </div>
-                      <div class="form-group">
-                          <input type="text" class="form-control" id="ville" name="ville" placeholder="Ville">
-                          @if ($errors->has('numTel'))
-                          <span class="text-danger">{{ $errors->first('ville') }}</span>
-                          @endif
-                      </div>
-                      <div class="float-left">
-                        <button type="submit" class="btn btn-dark ">Enregistrer  <i class="fas fa-save"></i></button>
-                      </div>
-                      <div class="float-right">
-                          <button type="button" class="btn btn-danger " data-dismiss="modal">Fermer  <i class="fas fa-times"></i></button>
-                      </div>
-                  </form>
-                </div>
-            </div>
-            </div>
-        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
     </div>
- </div>
-
+  </div>
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+  <style>
+    .p-0 {
+    padding: 3% !important;
+    }
+    .buttons-excel{
+      background-color: #343a40; /* Green */
+      border: none;
+      color: #fff;
+      width: 9%;
+      padding: 4px;
+      float: left;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 12px;
+    }
+    .checked {
+      color: orange !important;
+    }
+    .stars span{
+      color:gray;
+    }
+    </style>
 @stop
 
 @section('js')
-    <script>
-
-    </script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
+  <script>
+    //
+    $(document).ready(function() {
+    $('#table_id').DataTable( {
+        dom: 'Bfrtip',
+        select: true,
+        stateSave: true,
+        buttons: [
+            'excelHtml5'
+        ],
+        "language": {
+          "zeroRecords": "Rien trouvé - désolé",
+          "info": "Affichage de la page _PAGE_ sur _PAGES_",
+          "infoEmpty": "Aucun enregistrement disponible",
+          "paginate": {
+            "next":       "Suivant",
+            "previous":   "Retour"
+          },
+        }
+    } );
+} );
+  </script>
 @stop

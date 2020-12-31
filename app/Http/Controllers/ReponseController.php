@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reponse;
+use Auth;
 use Illuminate\Http\Request;
 
 class ReponseController extends Controller
@@ -48,9 +49,11 @@ class ReponseController extends Controller
         $reponse->message = $request->message;
         $reponse->ticket_id = $request->ticket_id;
         $reponse->user_id = $request->user_id;
-        $reponse->personnel = 1;
+        $reponse->personnel = 1;if(Auth::user()->role != 0){
+            $reponse->personnel = 1;
+        }
         $reponse->save();
-        return back()->with('success', 'Ticket a été ajouté!');
+        return back()->with('success', 'Reponse a été ajouté!');
     }
 
     /**

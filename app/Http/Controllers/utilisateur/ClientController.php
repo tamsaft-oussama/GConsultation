@@ -15,20 +15,24 @@ use App\Models\Historique;
 class ClientController extends Controller
 {
     public function index(){
-        return view('utilisateur.client.index',['user'=>Auth::user(),'ticket'=>User::getUserTickets(Auth::user())]);
+        return view('utilisateur.client.index',['user'=>Auth::user()]);
     }
 
     public function store(Request $request){
 
         $request->validate([
             'numTel'        => 'bail|required|unique:clients|max:10|min:10',
-            'ville'         => 'bail|required',
+            'nom'         => '',
+            'ville'         => '',
+            'email'         => 'email',
             'commentaire'   => 'bail|required|min:10'
         ]);
 
         $client                     = new Client();
         $client->numTel             = $request->input('numTel');
+        $client->nom              = $request->input('nom');
         $client->ville              = $request->input('ville');
+        $client->email              = $request->input('email');
         $client->user_id            = $request->input('user_id');
         $client->save();
 

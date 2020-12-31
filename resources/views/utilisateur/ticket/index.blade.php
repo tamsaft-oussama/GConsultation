@@ -2,39 +2,78 @@
 
 @section('content')
 
-<div class="card borderTop">
-    <div class="card-body">
-        <h4 class="card-title">Ouvrir un ticket</h4>
-        <p class="card-text">
-            <form action="{{ route('ticket-user.store') }}" method="post">
-                @csrf
+<div class="row">
+    @if(Session::has('success'))
+        <div class="alert alert-success" role="alert" style="margin: 1%; width:100%">
+          {{Session::get('success')}}
+        </div>
+      @endif
+      @if($errors->any())
+        <div class="alert alert-danger" role="alert" style="margin: 1%; width:100%">
+          @foreach ($errors->all() as $error)
+              - {{$error}} <br>
+          @endforeach
+        </div>
+      @endif
+  </div>
+  <section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-outline card-info">
+          <div class="card-header">
+            <h3 class="card-title">
+              Ouvrir un ticket
+            </h3>
+            <!-- /. tools -->
+          </div>
+          <!-- /.card-header -->
+          <form action="{{route('ticket.store2')}}" method="post">
+            @csrf
+            <div class="card-body pad">
+              <div class="mb-3">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Objet" name="objet">
+                  <label for="exampleInputEmail1">Objet</label>
+                  <input type="text" name="objet" class="form-control" maxlength="100" required>
                 </div>
-                <div class="form-group">
-                    <select class="form-control" name="departement">
-                        <option disabled selected>Département</option>
-                        <option value="Service Commercial">Service Commercial</option>
-                        <option value="Service Commercial">Service Technique</option>
-                    </select>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <!-- select -->
+                    <div class="form-group">
+                      <label>Département</label>
+                      <select class="form-control" name="departement">
+                        <option value="Service Commercial" selected="selected">Service Commercial</option>
+                        <option value="Service Technique">Service Technique</option>
+                        <option value="Reclamation">Reclamation</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Priorité</label>
+                      <select class="form-control" name="priorite">
+                        <option value="Haute">Haute</option>
+                      <option value="Moyenne" selected="selected">Moyenne</option>
+                      <option value="Faible">Faible</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
-                <div class="form-group">
-                    <select class="form-control" name="priorite">
-                    <option disabled selected>Priorité</option>
-                    <option value="Haut">Haut</option>
-                    <option value="Moyenne">Moyenne</option>
-                    <option value="Faible">Faible</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <textarea class="form-control" placeholder="Message" rows="3" name="message"></textarea>
-                </div>
-                <input type="submit" value="Envoyer" class="btn btn-success btn-sm px-5">
-            </form>
-        </p>
+                <textarea name="message"></textarea>
+              </div>
+              <div style="text-align: right">
+                <button type="submit" class="btn btn-gold" style=" margin-right: 2%; ">Envoyer</button>
+              </div>
+            </div>
+        </form>
+      </div>
+      <!-- /.col-->
     </div>
-</div>
-
+    <!-- ./row -->
+  </section>
+  <script src="//cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+<script>
+  CKEDITOR.replace( 'message' );
+</script>
 @endsection
 
 
