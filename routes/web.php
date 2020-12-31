@@ -34,6 +34,7 @@ Route::get('/', function () {
     return view('welcome', ['packs' => $packs]);
 });
 
+// Route::post('/',[WelcomeController::class,'index']);
 Route::post('/user/send-sms',[UserController::class,'sendSMS'])->name('user-sms');
 Route::get('validate',function(){
     return view('auth.validate');
@@ -65,8 +66,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('utilisateur-pack', PackUserController::class)->only('index','show');
     Route::resource('/ticket-user',TicketController2::class);
     Route::get('/ticket-user',[TicketController2::class,'index'])->name('ticket-user.index');
-    Route::post('/ticket-user',[TicketController2::class,'store'])->name('ticket.store2');  
-    Route::get('/ticket-show/{ticket}',[TicketController2::class,'show'])->name('ticket.show2'); 
+    Route::post('/ticket-user',[TicketController2::class,'store'])->name('ticket.store2');
+    Route::get('/ticket-show/{ticket}',[TicketController2::class,'show'])->name('ticket.show2');
     Route::get('/historique-user',[HistoriqueController::class,'userIndex'])->name('historique-user.userIndex');
     Route::get('/utilisateur',[UtilisateurController::class,'index'])->name('utilisateur.index');
     Route::get('/client-user',[ClientController2::class,'index'])->name('client-user.index');

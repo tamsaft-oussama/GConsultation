@@ -41,6 +41,9 @@
                             <a class="nav-link" href="#notreCommunaute">Notre Communauté</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="#tarification">Tarification</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#contact">Contacter nous</a>
                         </li>
                     </ul>
@@ -182,6 +185,78 @@
             </div>
         </div>
 
+
+        <!-- Pricing -->
+
+        @if ($packs)
+        <div id="generic_price_table">
+            <h2 class="text-center mb-5 headline">Tarification</h2>
+            <section id="tarification">
+                <div class="container">
+                    <!--BLOCK ROW START-->
+                    <div class="row">
+                        @foreach ($packs as $pack)
+                        <div class="col-md-4">
+
+                            <!--PRICE CONTENT START-->
+                            <div class="generic_content clearfix">
+
+                                <!--HEAD PRICE DETAIL START-->
+                                <div class="generic_head_price clearfix">
+
+                                    <!--HEAD CONTENT START-->
+                                    <div class="generic_head_content clearfix">
+
+                                        <!--HEAD START-->
+                                        <div class="head_bg"></div>
+                                        <div class="head">
+                                            <span>{{ $pack->titre }}</span>
+                                        </div>
+                                        <!--//HEAD END-->
+
+                                    </div>
+                                    <!--//HEAD CONTENT END-->
+
+                                    <!--PRICE START-->
+                                    <div class="generic_price_tag clearfix">
+                                        <span class="price">
+                                            <span class="sign">DH</span>
+                                            <span class="currency">{{ $pack->prix }}</span>
+                                        </span>
+                                    </div>
+                                    <!--//PRICE END-->
+
+                                </div>
+                                <!--//HEAD PRICE DETAIL END-->
+
+                                <!--FEATURE LIST START-->
+                                <div class="generic_feature_list">
+                                    <ul>
+                                        <li>{{ $pack->offre }}</li>
+                                        <li><span>150GB</span> {{ $pack->solde }}</li>
+                                        <li>{{ $pack->description }}</li>
+                                    </ul>
+                                </div>
+                                <!--//FEATURE LIST END-->
+
+                                <!--BUTTON START-->
+                                <div class="generic_price_btn clearfix">
+                                    <a class="" href="{{ route('pack.show',['pack'=>$pack->id]) }}">Acheté</a>
+                                </div>
+                                <!--//BUTTON END-->
+
+                            </div>
+                            <!--//PRICE CONTENT END-->
+
+                        </div>
+                        @endforeach
+                    </div>
+                    <!--//BLOCK ROW END-->
+                </div>
+            </section>
+        </div>
+        @endif
+
         <!-- Contact us -->
         <div class="imgCoverly mt-5 py-5" id="contact">
             <div class="coverly  bg-shape"></div>
@@ -223,7 +298,6 @@
                 </div>
             </div>
         </div>
-
 
         <footer class="text-light">
             <div class="container">
